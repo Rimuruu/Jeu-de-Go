@@ -7,10 +7,11 @@ import javax.imageio.ImageIO;
 
 public class Fenetre extends JFrame{
 	Fenetre(){
-		this.setSize(1000,828);
-		this.setVisible(true);
+		this.setSize(1100,928);
+	
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setResizable(false);
+		
 		this.setLocation(300,200);
+		this.setLayout(null);
 	}
 }
