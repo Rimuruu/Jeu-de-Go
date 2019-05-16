@@ -5,27 +5,34 @@ import java.util.*;
 import javax.imageio.ImageIO;
 import java.awt.event.*;
 
-public class Panel extends JPanel implements MouseListener,MouseMotionListener{
-	private Image goban;
+public class Panel extends JPanel{
+	public Image goban;
 
-	private Image pionn;
-	private Image pionb;
-	private int[][] plateau;
+	public Image pionn;
+	public Image pionnt;
+	public Image pionb;
+	public int[][] plateau;
 	public boolean init;
 	public int j;
 	public Fenetre fenetre;
+	public int lastx;
+	public int lasty;
 	Panel(Fenetre fenetre){
 		super();
 		this.setSize(1100,900);
 		this.setLocation(0,0);
-		addMouseListener(this);
+		addMouseListener(fenetre);
+		addMouseMotionListener(fenetre);
 
 		goban = Toolkit.getDefaultToolkit().getImage("goban9.png");
 		pionn = Toolkit.getDefaultToolkit().getImage("pionnoir9.png");
+		pionnt = Toolkit.getDefaultToolkit().getImage("pionnoir9t.png");
 		pionb = Toolkit.getDefaultToolkit().getImage("pionblanc9.png");
 		plateau = new int[9][9];
 		init = false;
 		j=1;
+		lasty = 0;
+		lastx = 0;
 		this.fenetre = fenetre;
 
 		
@@ -42,6 +49,9 @@ public class Panel extends JPanel implements MouseListener,MouseMotionListener{
 				else if (plateau[x][y] == 2) {
 					g.drawImage(pionb,pox,poy,this);				
 				}
+				else if (plateau[x][y] == 3) {
+					g.drawImage(pionnt,pox,poy,this);				
+				}
 			}
 		}
 	}
@@ -56,37 +66,78 @@ public class Panel extends JPanel implements MouseListener,MouseMotionListener{
 		
 	}
 
-	@Override
-	public void mouseExited(MouseEvent e){}
-	@Override
-	public void mouseEntered(MouseEvent e){}
-	@Override
-	public void mouseReleased(MouseEvent e){}
-	@Override
-	public void mouseClicked(MouseEvent e){
-		
-
-	}
-	@Override
-	public void mousePressed(MouseEvent e){
+	public void placerPion(MouseEvent e){
 		int y = e.getY();
 		int x = e.getX();
 		int button = e.getButton();
-		if (button == MouseEvent.BUTTON1 && this.j == 1 && plateau[x/100][y/100]!=2) {
-			plateau[x/100][y/100]=1;
-			j=2;
-		}
-		else if (button == MouseEvent.BUTTON1 && this.j == 2 && plateau[x/100][y/100]!=1) {
-			plateau[x/100][y/100]=2;
-			j=1;
-		}
-		System.out.println("x : "+x+" y : "+y);
 		
-		repaint(); 
+		if (x>40 && y > 40 && x<850 && y < 850) {
+			if (button == MouseEvent.BUTTON1 && this.j == 1 && this.plateau[x/100][y/100]!=2  && this.plateau[x/100][y/100]!=1) {
+				this.plateau[x/100][y/100]=1;
+				this.j=2;
+			
+			}
+			else if (button == MouseEvent.BUTTON1 && this.j == 2 && this.plateau[x/100][y/100]!=1  && this.plateau[x/100][y/100]!=2) {
+				this.plateau[x/100][y/100]=2;
+				this.j=1;
+			
+			}
 	}
-	@Override
-	public void mouseDragged(MouseEvent e){}
-	@Override
-	public void mouseMoved(MouseEvent e){}
+		
+		
+		this.repaint(); 
+	}
+
+	public void mouseOver(MouseEvent e){
+		int y = e.getY();
+		int x = e.getX();
+		if (x>40 && y > 40 && x<850 && y < 850) {
+			if (this.j == 1 && this.plateau[x/100][y/100]!=2  && this.plateau[x/100][y/100]!=1) {
+				if (lastx != 0 && lasty != 0) {
+					
+						
+						
+						if (this.plateau[lastx/100][lasty/100]!=1  && this.plateau[lastx/100][lasty/100]!=2) {
+							this.plateau[lastx/100][lasty/100]=0;
+						
+						}
+							
+						
+						this.plateau[x/100][y/100]=3;
+						//System.out.println("Lastx "+lastx+" Lasty "+lasty);
+						//System.out.println("x "+x+" y "+y);
+						
+					
+					
+				}
+				
+				lastx = x;
+				lasty = y;
+
+		
+			}
+			else if (this.j == 2 && this.plateau[x/100][y/100]!=1  && this.plateau[x/100][y/100]!=2) {
+				if (lastx != 0 && lasty != 0) {
+				
+						if (this.plateau[lastx/100][lasty/100]!=1  && this.plateau[lastx/100][lasty/100]!=2) {
+							this.plateau[lastx/100][lasty/100]=0;
+										}
+						
+						this.plateau[x/100][y/100]=3;
+						
+					
+				}
+			
+				lastx = x;
+				lasty = y;
+		
+			}
+			
+		}
+		this.repaint(); 
+
+	}
+
+
 
 }
