@@ -58,7 +58,14 @@ public class Menu extends JPanel implements MouseListener,MouseMotionListener,Ac
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if(source == play){
-			System.out.println("Vous avez cliqué ici.");
+			
+			fenetre.removeAll();
+			fenetre.repaint();
+			fenetre.revalidate();
+			fenetre.panel = new Panel(fenetre);
+			fenetre.add(fenetre.panel);
+			fenetre.repaint();
+			fenetre.revalidate();
 		} else if(source == parametre){
 			System.out.println("Vous avez cliqué là.");	
 		}

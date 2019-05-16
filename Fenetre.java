@@ -17,9 +17,10 @@ public class Fenetre extends JFrame{
 		this.setLayout(null);
 		this.setVisible(true);
 		this.setResizable(false);
-		menu = new Menu(this);
-		panel = new Panel(this);
-		this.add(menu);
+		/*menu = new Menu(this);
+		this.add(menu);*/
+		this.panel = new Panel(this);
+		this.add(panel);
 
 	}
 }
