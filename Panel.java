@@ -7,25 +7,26 @@ import java.awt.event.*;
 
 public class Panel extends JPanel implements MouseListener,MouseMotionListener{
 	private Image goban;
-	private Image goban2;
-	private Image goban3;
+
 	private Image pionn;
 	private Image pionb;
 	private int[][] plateau;
 	public boolean init;
 	public int j;
-	Panel(){
+	public Fenetre fenetre;
+	Panel(Fenetre fenetre){
 		super();
 		this.setSize(1100,900);
 		this.setLocation(0,0);
 		addMouseListener(this);
-		goban = Toolkit.getDefaultToolkit().getImage("goban19.png");
-		goban2 = Toolkit.getDefaultToolkit().getImage("goban9.png");
+
+		goban = Toolkit.getDefaultToolkit().getImage("goban9.png");
 		pionn = Toolkit.getDefaultToolkit().getImage("pionnoir9.png");
 		pionb = Toolkit.getDefaultToolkit().getImage("pionblanc9.png");
 		plateau = new int[9][9];
 		init = false;
 		j=1;
+		this.fenetre = fenetre;
 
 		
 	
@@ -50,7 +51,7 @@ public class Panel extends JPanel implements MouseListener,MouseMotionListener{
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		g.drawImage(goban2,0,0,this);
+		g.drawImage(goban,0,0,this);
 		posePion(g);
 		
 	}

@@ -8,10 +8,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Fenetre window = new Fenetre();
-		Panel panneau = new Panel();
-		window.add(panneau);
-		//window.setResizable(false);
-		window.setVisible(true);
+	
 
 		
 	}
