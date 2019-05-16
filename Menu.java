@@ -49,6 +49,12 @@ public class Menu extends JPanel{
 			
 			
 		} else if(source == fenetre.menu.parametre){
+			fenetre.repaint();
+			fenetre.revalidate();
+
+			fenetre.setContentPane(fenetre.param);
+			fenetre.repaint();
+			fenetre.revalidate();
 			
 		}
 

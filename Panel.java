@@ -10,6 +10,7 @@ public class Panel extends JPanel{
 
 	public Image pionn;
 	public Image pionnt;
+	public Image pionbt;
 	public Image pionb;
 	public int[][] plateau;
 	public boolean init;
@@ -24,11 +25,12 @@ public class Panel extends JPanel{
 		addMouseListener(fenetre);
 		addMouseMotionListener(fenetre);
 
-		goban = Toolkit.getDefaultToolkit().getImage("goban9.png");
-		pionn = Toolkit.getDefaultToolkit().getImage("pionnoir9.png");
-		pionnt = Toolkit.getDefaultToolkit().getImage("pionnoir9t.png");
-		pionb = Toolkit.getDefaultToolkit().getImage("pionblanc9.png");
-		plateau = new int[9][9];
+		goban = Toolkit.getDefaultToolkit().getImage("goban"+fenetre.param.size+".png");
+		pionn = Toolkit.getDefaultToolkit().getImage("pionnoir"+fenetre.param.size+".png");
+		pionnt = Toolkit.getDefaultToolkit().getImage("pionnoir"+fenetre.param.size+"t.png");
+		pionbt = Toolkit.getDefaultToolkit().getImage("pionblanc"+fenetre.param.size+"t.png");
+		pionb = Toolkit.getDefaultToolkit().getImage("pionblanc"+fenetre.param.size+".png");
+		plateau = new int[fenetre.param.size][fenetre.param.size];
 		init = false;
 		j=1;
 		lasty = 0;
@@ -52,6 +54,9 @@ public class Panel extends JPanel{
 				else if (plateau[x][y] == 3) {
 					g.drawImage(pionnt,pox,poy,this);				
 				}
+				else if (plateau[x][y] == 4) {
+					g.drawImage(pionbt,pox,poy,this);				
+				}
 			}
 		}
 	}
@@ -70,7 +75,7 @@ public class Panel extends JPanel{
 		int y = e.getY();
 		int x = e.getX();
 		int button = e.getButton();
-		
+		System.out.println("x "+x+" y "+y);
 		if (x>40 && y > 40 && x<850 && y < 850) {
 			if (button == MouseEvent.BUTTON1 && this.j == 1 && this.plateau[x/100][y/100]!=2  && this.plateau[x/100][y/100]!=1) {
 				this.plateau[x/100][y/100]=1;
@@ -123,7 +128,7 @@ public class Panel extends JPanel{
 							this.plateau[lastx/100][lasty/100]=0;
 										}
 						
-						this.plateau[x/100][y/100]=3;
+						this.plateau[x/100][y/100]=4;
 						
 					
 				}

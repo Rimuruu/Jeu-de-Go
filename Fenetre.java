@@ -8,6 +8,7 @@ import java.awt.event.*;
 public class Fenetre extends JFrame implements MouseListener,MouseMotionListener,ActionListener{
 	public Menu menu;
 	public Panel panel;
+	public Parametre param;
 	public Container container;
 	Fenetre(){
 		this.setSize(1100,928);
@@ -20,6 +21,7 @@ public class Fenetre extends JFrame implements MouseListener,MouseMotionListener
 		this.setResizable(false);
 		addMouseListener(this);
 		addMouseMotionListener(this);
+		param = new Parametre(this);
 		menu = new Menu(this);
 		this.setContentPane(menu);
 		/*this.panel = new Panel(this);
@@ -29,11 +31,11 @@ public class Fenetre extends JFrame implements MouseListener,MouseMotionListener
 
 	@Override
 	public void mouseExited(MouseEvent e){
-		System.out.println("EXITED");
+	
 	}
 	@Override
 	public void mouseEntered(MouseEvent e){
-		System.out.println("ENTERED");
+		
 	}
 	@Override
 	public void mouseReleased(MouseEvent e){}
@@ -62,7 +64,14 @@ public class Fenetre extends JFrame implements MouseListener,MouseMotionListener
 		}
 	}
 	public void actionPerformed(ActionEvent e) {
-		this.menu.jouer(e);
+		if (this.getContentPane() instanceof Menu) {
+			this.menu.jouer(e);
+		}
+		else if (this.getContentPane() instanceof Parametre) {
+			this.param.select(e);
+			
+		}
+		
 		
 	}
 
