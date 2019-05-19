@@ -51,37 +51,48 @@ public class Case{
 
 public void prise(Case[][] plat,int size){
 	int a = 0;
+	int b = this.contenue;
 	if (this.contenue == 1) {
 		a = 2;
 	}
 	else{
 		a =1;
 	}
-
+	this.contenue = 0;
 	if (this.index != 0) {
 			if(plat[this.index-1][this.indey].contenue == a){
 				Case.ajouterLiberter(plat[this.index-1][this.indey],this);
 			}
+			else if(plat[this.index-1][this.indey].contenue == b){
+				plat[this.index-1][this.indey].prise(plat,size);
+			}
 			
 		}
 	
-		if (this.indey != 0) {
+	if (this.indey != 0) {
 			if(plat[this.index][this.indey-1].contenue == a){
 				Case.ajouterLiberter(plat[this.index][this.indey-1],this);	
 			}
-			
+			else if(plat[this.index][this.indey-1].contenue == b){
+				plat[this.index][this.indey-1].prise(plat,size);
+			}
 			
 		}
-		if (this.index != size-1) {
+	if (this.index != size-1) {
 			if(plat[this.index+1][this.indey].contenue == a ){
 				Case.ajouterLiberter(plat[this.index+1][this.indey],this);
 			}
-		
+			else if(plat[this.index+1][this.indey].contenue == b){
+				plat[this.index+1][this.indey].prise(plat,size);
+			}
 		
 		}
-		if (this.indey != size-1) {
+	if (this.indey != size-1) {
 			if(plat[this.index][this.indey+1].contenue == a){
 				Case.ajouterLiberter(plat[this.index][this.indey+1],this);
+			}
+			else if(plat[this.index][this.indey+1].contenue == b){
+				plat[this.index][this.indey+1].prise(plat,size);
 			}
 			
 		
@@ -89,20 +100,57 @@ public void prise(Case[][] plat,int size){
 		}
 
 		this.liberte.clear();
-		this.contenue = 0;
+		
 
 
 }
 
-	public static void checkLiberter(Case[][] plat,int size){
-		for (int x = 0;x<size;x=x+1) {
-			for (int y = 0;y<size;y=y+1) {
-				if (plat[x][y].sizeLiberter(plat,new LinkedList<Case>(),size) == 0) {
-					plat[x][y].prise(plat,size);
-				}
+	public static void checkLiberter(Case[][] plat,int size,Case cases){
+		int a = 0;
+		if (cases.contenue == 1) {
+			a = 2;
+		}
+		else{
+			a =1;
+	}
+
+	
+		if (cases.sizeLiberter(plat,new LinkedList<Case>(),size) == 0) {
+			cases.prise(plat,size);
+		}
+		if (cases.index != 0) {
+			if (plat[cases.index-1][cases.indey].sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && plat[cases.index-1][cases.indey].contenue == a) {
+				plat[cases.index-1][cases.indey].prise(plat,size);
+			}
+	
+		}
+	
+		if (cases.indey != 0) {
+			if (plat[cases.index][cases.indey-1].sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && plat[cases.index][cases.indey-1].contenue == a) {
+				plat[cases.index][cases.indey-1].prise(plat,size);
+			}
+	
 				
 			}
-		}
+		if (cases.index != size-1) {
+			if (plat[cases.index+1][cases.indey].sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && plat[cases.index+1][cases.indey].contenue == a) {
+				plat[cases.index+1][cases.indey].prise(plat,size);
+			}
+			
+			
+			}
+		if (cases.indey != size-1) {
+			if (plat[cases.index][cases.indey+1].sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && plat[cases.index][cases.indey+1].contenue == a) {
+				plat[cases.index][cases.indey+1].prise(plat,size);
+			}
+			
+				
+			
+				
+			}
+				
+		
+		
 
 	}
 

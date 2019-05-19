@@ -132,10 +132,11 @@ public class Panel extends JPanel{
 					this.j=1;
 				
 				}
+			Case.checkLiberter(this.plat,fenetre.param.size,casepick);
 		}
 }
 		
-		Case.checkLiberter(this.plat,fenetre.param.size);
+		
 		this.repaint(); 
 	}
 
