@@ -49,13 +49,107 @@ public class Case{
 
 	}
 
+public void prise(Case[][] plat,int size){
+	int a = 0;
+	if (this.contenue == 1) {
+		a = 2;
+	}
+	else{
+		a =1;
+	}
+
+	if (this.index != 0) {
+			if(plat[this.index-1][this.indey].contenue == a){
+				Case.ajouterLiberter(plat[this.index-1][this.indey],this);
+			}
+			
+		}
+	
+		if (this.indey != 0) {
+			if(plat[this.index][this.indey-1].contenue == a){
+				Case.ajouterLiberter(plat[this.index][this.indey-1],this);	
+			}
+			
+			
+		}
+		if (this.index != size-1) {
+			if(plat[this.index+1][this.indey].contenue == a ){
+				Case.ajouterLiberter(plat[this.index+1][this.indey],this);
+			}
+		
+		
+		}
+		if (this.indey != size-1) {
+			if(plat[this.index][this.indey+1].contenue == a){
+				Case.ajouterLiberter(plat[this.index][this.indey+1],this);
+			}
+			
+		
+			
+		}
+
+		this.liberte.clear();
+		this.contenue = 0;
+
+
+}
+
+	public static void checkLiberter(Case[][] plat,int size){
+		for (int x = 0;x<size;x=x+1) {
+			for (int y = 0;y<size;y=y+1) {
+				if (plat[x][y].sizeLiberter(plat,new LinkedList<Case>(),size) == 0) {
+					plat[x][y].prise(plat,size);
+				}
+				
+			}
+		}
+
+	}
+
 	public static void supprimerLiberter(Case cases,Case supprimer){
 		cases.liberte.remove(supprimer);
 
 	}
 
-	public int sizeLiberter(){
-		return this.liberte.size();
+	public static void ajouterLiberter(Case cases,Case ajouter){
+		cases.liberte.add(ajouter);
+
+	}
+
+	public int sizeLiberter(Case[][] plat,LinkedList<Case> visiter,int size){
+		int sizes = 0;
+		visiter.add(this);
+		if (this.index != 0) {
+			if(plat[this.index-1][this.indey].contenue == this.contenue && !visiter.contains(plat[this.index-1][this.indey])){
+				sizes = sizes + plat[this.index-1][this.indey].sizeLiberter(plat,visiter,size);
+			}
+			
+		}
+	
+		if (this.indey != 0) {
+			if(plat[this.index][this.indey-1].contenue == this.contenue && !visiter.contains(plat[this.index][this.indey-1])){
+				sizes = sizes + plat[this.index][this.indey-1].sizeLiberter(plat,visiter,size);
+			}
+			
+			
+		}
+		if (this.index != size-1) {
+			if(plat[this.index+1][this.indey].contenue == this.contenue && !visiter.contains(plat[this.index+1][this.indey])){
+				sizes = sizes + plat[this.index+1][this.indey].sizeLiberter(plat,visiter,size);
+			}
+		
+		
+		}
+		if (this.indey != size-1) {
+			if(plat[this.index][this.indey+1].contenue == this.contenue && !visiter.contains(plat[this.index][this.indey+1])){
+				sizes = sizes + plat[this.index][this.indey+1].sizeLiberter(plat,visiter,size);
+			}
+			
+		
+			
+		}
+	
+		return sizes + this.liberte.size();
 
 	}
 

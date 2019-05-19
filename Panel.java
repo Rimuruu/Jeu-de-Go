@@ -121,21 +121,21 @@ public class Panel extends JPanel{
 				if (button == MouseEvent.BUTTON1 && this.j == 1 && casepick.contenue!=2  && casepick.contenue!=1) {
 					casepick.contenue=1;
 					Case.setLiberter(this.plat,casepick,fenetre.param.size);
-					System.out.println("Liberter : "+casepick.sizeLiberter());
+					System.out.println("Liberter : "+casepick.sizeLiberter(this.plat,new LinkedList<Case>(),fenetre.param.size));
 					this.j=2;
 				
 				}
 				else if (button == MouseEvent.BUTTON1 && this.j == 2 && casepick.contenue!=1  && casepick.contenue!=2) {
 					casepick.contenue=2;
 					Case.setLiberter(this.plat,casepick,fenetre.param.size);
-					System.out.println("Liberter : "+casepick.sizeLiberter());
+					System.out.println("Liberter : "+casepick.sizeLiberter(this.plat,new LinkedList<Case>(),fenetre.param.size));
 					this.j=1;
 				
 				}
 		}
 }
 		
-		
+		Case.checkLiberter(this.plat,fenetre.param.size);
 		this.repaint(); 
 	}
 
