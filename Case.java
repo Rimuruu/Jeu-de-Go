@@ -9,10 +9,16 @@ import java.awt.event.*;
 public class Case{
 	public int x;
 	public int y;
+	public int index;
+	public int indey;
 	public int contenue;
-	Case(int x,int y){
+	public LinkedList<Case> liberte;
+	Case(int x,int y,int index,int indey){
 		this.x = x;
 		this.y = y;
+		this.index = index;
+		this.indey = indey;
+		this.liberte = new LinkedList<Case>();
 		this.contenue = 0;
 	}
 
@@ -41,6 +47,56 @@ public class Case{
 
 
 
+	}
+
+	public static void supprimerLiberter(Case cases,Case supprimer){
+		cases.liberte.remove(supprimer);
+
+	}
+
+	public int sizeLiberter(){
+		return this.liberte.size();
+
+	}
+
+	public static void setLiberter(Case[][] plat,Case cases,int size){
+		if (cases.index != 0) {
+			if(plat[cases.index-1][cases.indey].contenue == 1 || plat[cases.index-1][cases.indey].contenue == 2){
+				Case.supprimerLiberter(plat[cases.index-1][cases.indey],cases);
+			}
+			else{
+				cases.liberte.add(plat[cases.index-1][cases.indey]);
+			}
+		}
+	
+		if (cases.indey != 0) {
+			if(plat[cases.index][cases.indey-1].contenue == 1 || plat[cases.index][cases.indey-1].contenue == 2){
+				Case.supprimerLiberter(plat[cases.index][cases.indey-1],cases);
+			}
+			else{
+				cases.liberte.add(plat[cases.index][cases.indey-1]);
+			}
+			
+		}
+		if (cases.index != size-1) {
+			if(plat[cases.index+1][cases.indey].contenue == 1 || plat[cases.index+1][cases.indey].contenue == 2){
+				Case.supprimerLiberter(plat[cases.index+1][cases.indey],cases);
+			}
+			else{
+				cases.liberte.add(plat[cases.index+1][cases.indey]);
+			}
+		
+		}
+		if (cases.indey != size-1) {
+			if(plat[cases.index][cases.indey+1].contenue == 1 || plat[cases.index][cases.indey+1].contenue == 2){
+				Case.supprimerLiberter(plat[cases.index][cases.indey+1],cases);
+			}
+			else{
+				cases.liberte.add(plat[cases.index][cases.indey+1]);
+			}
+		
+			
+		}
 	}
 
 }

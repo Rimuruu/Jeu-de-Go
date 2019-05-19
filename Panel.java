@@ -49,7 +49,7 @@ public class Panel extends JPanel{
 		if (size == 9) {
 			for (int x = 0,pox = 69-46 ;x<9;x=x+1,pox=pox+95) {
 				for (int y = 0,poy = 69-46 ;y<9;y=y+1,poy=poy+95) {
-					plat[x][y] = new Case(pox,poy);
+					plat[x][y] = new Case(pox,poy,x,y);
 					
 				}
 			}
@@ -59,7 +59,7 @@ public class Panel extends JPanel{
 		else if (size == 19) {
 			for (int x = 0,pox = 45-22 ;x<19;x=x+1,pox=pox+45) {
 				for (int y = 0,poy = 45-22 ;y<19;y=y+1,poy=poy+45) {
-					plat[x][y] = new Case(pox,poy);
+					plat[x][y] = new Case(pox,poy,x,y);
 					
 				}
 			}
@@ -69,7 +69,7 @@ public class Panel extends JPanel{
 		else if (size == 13) {
 			for (int x = 0,pox = 68-32 ;x<13;x=x+1,pox=pox+64) {
 				for (int y = 0,poy = 68-32 ;y<13;y=y+1,poy=poy+64) {
-					plat[x][y] = new Case(pox,poy);
+					plat[x][y] = new Case(pox,poy,x,y);
 					
 				}
 			}
@@ -120,11 +120,15 @@ public class Panel extends JPanel{
 			if (x>40 && y > 40 && x<900 && y < 900) {
 				if (button == MouseEvent.BUTTON1 && this.j == 1 && casepick.contenue!=2  && casepick.contenue!=1) {
 					casepick.contenue=1;
+					Case.setLiberter(this.plat,casepick,fenetre.param.size);
+					System.out.println("Liberter : "+casepick.sizeLiberter());
 					this.j=2;
 				
 				}
 				else if (button == MouseEvent.BUTTON1 && this.j == 2 && casepick.contenue!=1  && casepick.contenue!=2) {
 					casepick.contenue=2;
+					Case.setLiberter(this.plat,casepick,fenetre.param.size);
+					System.out.println("Liberter : "+casepick.sizeLiberter());
 					this.j=1;
 				
 				}
