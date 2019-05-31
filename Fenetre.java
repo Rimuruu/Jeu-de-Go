@@ -9,7 +9,7 @@ public class Fenetre extends JFrame implements MouseListener,MouseMotionListener
 	public Menu menu;
 	public Panel panel;
 	public Parametre param;
-	public Container container;
+	public JPanel container;
 	Fenetre(){
 		this.setSize(1100,928);
 	
@@ -46,7 +46,7 @@ public class Fenetre extends JFrame implements MouseListener,MouseMotionListener
 	}
 	@Override
 	public void mousePressed(MouseEvent e){
-		if (this.getContentPane() instanceof Panel) {
+		if (this.getContentPane() instanceof Partie) {
 			panel.placerPion(e);
 		}
 		
@@ -59,7 +59,7 @@ public class Fenetre extends JFrame implements MouseListener,MouseMotionListener
 	}
 	@Override
 	public void mouseMoved(MouseEvent e){
-		if (this.getContentPane() instanceof Panel) {
+		if (this.getContentPane() instanceof Partie) {
 			panel.mouseOver(e);
 		}
 	}

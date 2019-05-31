@@ -40,10 +40,18 @@ public class Menu extends JPanel{
 		Object source = e.getSource();
 		if(source == fenetre.menu.play){
 			fenetre.panel = new Panel(fenetre);
+			fenetre.container = new Partie(fenetre.panel);
+			fenetre.container.setLayout(null);
+			
+
+			fenetre.container.add(fenetre.panel.score);
+			fenetre.container.add(fenetre.panel);
+			
+
 			fenetre.repaint();
 			fenetre.revalidate();
 
-			fenetre.setContentPane(fenetre.panel);
+			fenetre.setContentPane(fenetre.container);
 			fenetre.repaint();
 			fenetre.revalidate();
 			

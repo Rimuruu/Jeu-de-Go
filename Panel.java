@@ -17,12 +17,16 @@ public class Panel extends JPanel{
 	public boolean init;
 	public int j;
 	public Fenetre fenetre;
+	public Score score;
 	public int lastx;
 	public int lasty;
+	public Case lastj1;
+	public Case lastj2;
 	Panel(Fenetre fenetre){
 		super();
-		this.setSize(1100,900);
+		this.setSize(900,900);
 		this.setLocation(0,0);
+		this.score = new Score(fenetre);
 		addMouseListener(fenetre);
 		addMouseMotionListener(fenetre);
 
@@ -39,6 +43,10 @@ public class Panel extends JPanel{
 		lasty = 0;
 		lastx = 0;
 		this.fenetre = fenetre;
+		
+		
+		fenetre.repaint();
+		fenetre.revalidate();
 
 		
 	
@@ -115,6 +123,7 @@ public class Panel extends JPanel{
 		System.out.println("x "+x+" y "+y);
 		Case casepick = Case.searchCase(plat,x,y,fenetre.param.size);
 		if (casepick != null) {
+			System.out.println("Check liberter "+casepick.sizeLiberter(this.plat,new LinkedList<Case>(),fenetre.param.size));
 			
 		
 			if (x>40 && y > 40 && x<900 && y < 900) {
