@@ -13,13 +13,15 @@ public class Case{
 	public int indey;
 	public int contenue;
 	public LinkedList<Case> liberte;
-	Case(int x,int y,int index,int indey){
+	public Panel panel;
+	Case(int x,int y,int index,int indey,Panel panel){
 		this.x = x;
 		this.y = y;
 		this.index = index;
 		this.indey = indey;
 		this.liberte = new LinkedList<Case>();
 		this.contenue = 0;
+		this.panel = panel;
 	}
 
 	public static Case searchCase(Case[][] plat,int posx,int posy,int size){
@@ -105,8 +107,9 @@ public void prise(Case[][] plat,int size){
 
 }
 
-	public static void checkLiberter(Case[][] plat,int size,Case cases){
+	public static void checkLiberter(Case[][] plat,int size,Case cases,Panel panel){
 		int a = 0;
+		int b = cases.contenue;
 		if (cases.contenue == 1) {
 			a = 2;
 		}
@@ -114,10 +117,16 @@ public void prise(Case[][] plat,int size){
 			a =1;
 	}
 
-	
+		System.out.println(cases.sizeLiberter(plat,new LinkedList<Case>(),size));
 		if (cases.sizeLiberter(plat,new LinkedList<Case>(),size) == 0) {
-			cases.prise(plat,size);
+			panel.j = b;
+			cases.contenue = 0;
+			cases.liberte.clear();
+
+			
+
 		}
+		else{
 		if (cases.index != 0) {
 			if (plat[cases.index-1][cases.indey].sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && plat[cases.index-1][cases.indey].contenue == a) {
 				plat[cases.index-1][cases.indey].prise(plat,size);
@@ -148,6 +157,7 @@ public void prise(Case[][] plat,int size){
 			
 				
 			}
+		}
 				
 		
 		

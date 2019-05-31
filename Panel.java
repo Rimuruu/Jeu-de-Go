@@ -33,7 +33,7 @@ public class Panel extends JPanel{
 		pionb = Toolkit.getDefaultToolkit().getImage("pionblanc"+fenetre.param.size+".png");
 		plateau = new int[fenetre.param.size][fenetre.param.size];
 		plat = new Case[fenetre.param.size][fenetre.param.size];
-		Panel.setCase(plat,fenetre.param.size);
+		Panel.setCase(plat,fenetre.param.size,this);
 		init = false;
 		j=1;
 		lasty = 0;
@@ -45,11 +45,11 @@ public class Panel extends JPanel{
 
 	}
 
-	public static void setCase(Case[][] plat,int size){
+	public static void setCase(Case[][] plat,int size,Panel panel){
 		if (size == 9) {
 			for (int x = 0,pox = 69-46 ;x<9;x=x+1,pox=pox+95) {
 				for (int y = 0,poy = 69-46 ;y<9;y=y+1,poy=poy+95) {
-					plat[x][y] = new Case(pox,poy,x,y);
+					plat[x][y] = new Case(pox,poy,x,y,panel);
 					
 				}
 			}
@@ -59,7 +59,7 @@ public class Panel extends JPanel{
 		else if (size == 19) {
 			for (int x = 0,pox = 45-22 ;x<19;x=x+1,pox=pox+45) {
 				for (int y = 0,poy = 45-22 ;y<19;y=y+1,poy=poy+45) {
-					plat[x][y] = new Case(pox,poy,x,y);
+					plat[x][y] = new Case(pox,poy,x,y,panel);
 					
 				}
 			}
@@ -69,7 +69,7 @@ public class Panel extends JPanel{
 		else if (size == 13) {
 			for (int x = 0,pox = 68-32 ;x<13;x=x+1,pox=pox+64) {
 				for (int y = 0,poy = 68-32 ;y<13;y=y+1,poy=poy+64) {
-					plat[x][y] = new Case(pox,poy,x,y);
+					plat[x][y] = new Case(pox,poy,x,y,panel);
 					
 				}
 			}
@@ -132,7 +132,7 @@ public class Panel extends JPanel{
 					this.j=1;
 				
 				}
-			Case.checkLiberter(this.plat,fenetre.param.size,casepick);
+			Case.checkLiberter(this.plat,fenetre.param.size,casepick,this);
 		}
 }
 		
