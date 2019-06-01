@@ -11,7 +11,6 @@ public class Menu extends JPanel{
 	public JButton play;
 	public JButton parametre;
 	public Fenetre fenetre;
-
 	Menu(Fenetre fenetre){
 		super();
 		this.setSize(1100,900);
@@ -24,6 +23,8 @@ public class Menu extends JPanel{
 		this.add(play,BorderLayout.CENTER);
 		this.add(parametre,BorderLayout.CENTER);
 		this.fenetre = fenetre;
+		
+
 
 
  

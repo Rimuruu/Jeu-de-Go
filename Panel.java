@@ -26,7 +26,7 @@ public class Panel extends JPanel{
 		super();
 		this.setSize(900,900);
 		this.setLocation(0,0);
-		this.score = new Score(fenetre);
+		
 		addMouseListener(fenetre);
 		addMouseMotionListener(fenetre);
 
@@ -43,6 +43,8 @@ public class Panel extends JPanel{
 		lasty = 0;
 		lastx = 0;
 		this.fenetre = fenetre;
+		this.score = new Score(fenetre);
+		score.historique.add(score.copyPlateau(this.plat));
 		
 		
 		fenetre.repaint();
@@ -122,12 +124,18 @@ public class Panel extends JPanel{
 		int button = e.getButton();
 		System.out.println("x "+x+" y "+y);
 		Case casepick = Case.searchCase(plat,x,y,fenetre.param.size);
+		Case[][] copy;
 		if (casepick != null) {
 			System.out.println("Check liberter "+casepick.sizeLiberter(this.plat,new LinkedList<Case>(),fenetre.param.size));
 			
 		
 			if (x>40 && y > 40 && x<900 && y < 900) {
 				if (button == MouseEvent.BUTTON1 && this.j == 1 && casepick.contenue!=2  && casepick.contenue!=1) {
+					//System.out.println("Copy : "+score.copyPlateau(this.plat));
+					copy = score.copyPlateau(this.plat);
+					score.historique.add(copy);
+					score.listModel.addElement(copy);
+					score.scrolled();
 					casepick.contenue=1;
 					Case.setLiberter(this.plat,casepick,fenetre.param.size);
 					System.out.println("Liberter : "+casepick.sizeLiberter(this.plat,new LinkedList<Case>(),fenetre.param.size));
@@ -136,6 +144,12 @@ public class Panel extends JPanel{
 				
 				}
 				else if (button == MouseEvent.BUTTON1 && this.j == 2 && casepick.contenue!=1  && casepick.contenue!=2) {
+					//System.out.println("Copy : "+score.copyPlateau(this.plat));
+
+					copy = score.copyPlateau(this.plat);
+					score.historique.add(copy);
+					score.listModel.addElement(copy);
+					score.scrolled();
 					casepick.contenue=2;
 					Case.setLiberter(this.plat,casepick,fenetre.param.size);
 					System.out.println("Liberter : "+casepick.sizeLiberter(this.plat,new LinkedList<Case>(),fenetre.param.size));
