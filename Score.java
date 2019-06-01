@@ -7,6 +7,7 @@ import java.awt.event.*;
 
 public class Score extends JPanel{
 	public Fenetre fenetre;
+	public LinkedList<Case[][]> historique;
 	Score(Fenetre fenetre){
 		super();
 		this.setSize(300,900);
@@ -18,6 +19,16 @@ public class Score extends JPanel{
 	
 
 	}
+
+	/*public Case[][] copyPlateau(Case[][] plat){
+		Case[][] copy = new Case[fenetre.param.size][fenetre.param.size];
+		for (int i = 0;i<fenetre.param.size;i=i+1) {
+			for (int y = 0;y<fenetre.param.size;y=y+1) {
+				copy[i][y] = new Case(plat[i][y])
+			}	
+		}
+
+	}*/
 
 		@Override
 	public void paintComponent(Graphics g){

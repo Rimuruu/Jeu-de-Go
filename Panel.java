@@ -132,6 +132,7 @@ public class Panel extends JPanel{
 					Case.setLiberter(this.plat,casepick,fenetre.param.size);
 					System.out.println("Liberter : "+casepick.sizeLiberter(this.plat,new LinkedList<Case>(),fenetre.param.size));
 					this.j=2;
+					Case.checkLiberter(this.plat,fenetre.param.size,casepick,this);
 				
 				}
 				else if (button == MouseEvent.BUTTON1 && this.j == 2 && casepick.contenue!=1  && casepick.contenue!=2) {
@@ -139,9 +140,10 @@ public class Panel extends JPanel{
 					Case.setLiberter(this.plat,casepick,fenetre.param.size);
 					System.out.println("Liberter : "+casepick.sizeLiberter(this.plat,new LinkedList<Case>(),fenetre.param.size));
 					this.j=1;
+					Case.checkLiberter(this.plat,fenetre.param.size,casepick,this);
 				
 				}
-			Case.checkLiberter(this.plat,fenetre.param.size,casepick,this);
+			
 		}
 }
 		

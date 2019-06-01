@@ -117,14 +117,14 @@ public void prise(Case[][] plat,int size){
 			a =1;
 	}
 		if (this.index != 0) {
-			if (plat[this.index-1][this.indey].sizeLiberter(plat,new LinkedList<Case>(),size)-1 <= 0 && plat[this.index-1][this.indey].contenue == a) {
+			if (plat[this.index-1][this.indey].sizeLiberter(plat,new LinkedList<Case>(),size) <= 0 && plat[this.index-1][this.indey].contenue == a) {
 				return true;
 			}
 	
 		}
 	
 		if (this.indey != 0) {
-			if (plat[this.index][this.indey-1].sizeLiberter(plat,new LinkedList<Case>(),size)-1 <= 0 && plat[this.index][this.indey-1].contenue == a) {
+			if (plat[this.index][this.indey-1].sizeLiberter(plat,new LinkedList<Case>(),size) <= 0 && plat[this.index][this.indey-1].contenue == a) {
 				
 				return true;
 			}
@@ -132,14 +132,14 @@ public void prise(Case[][] plat,int size){
 				
 			}
 		if (this.index != size-1) {
-			if (plat[this.index+1][this.indey].sizeLiberter(plat,new LinkedList<Case>(),size)-1 <= 0 && plat[this.index+1][this.indey].contenue == a) {
+			if (plat[this.index+1][this.indey].sizeLiberter(plat,new LinkedList<Case>(),size) <= 0 && plat[this.index+1][this.indey].contenue == a) {
 				return true;
 			}
 			
 			
 			}
 		if (this.indey != size-1) {
-			if (plat[this.index][this.indey+1].sizeLiberter(plat,new LinkedList<Case>(),size)-1 <= 0 && plat[this.index][this.indey+1].contenue == a) {
+			if (plat[this.index][this.indey+1].sizeLiberter(plat,new LinkedList<Case>(),size) <= 0 && plat[this.index][this.indey+1].contenue == a) {
 				return true;
 			}
 			
