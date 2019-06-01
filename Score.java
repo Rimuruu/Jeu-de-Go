@@ -46,7 +46,7 @@ public class Score extends JPanel{
             Dimension vpSize = this.scroll.getViewport().getExtentSize();
             Dimension logSize = this.getSize();
 
-            int height = logSize.height + vpSize.height;
+            int height = logSize.height - vpSize.height;
             this.scroll.getViewport().setViewPosition(new Point(0, height));
         }
 
