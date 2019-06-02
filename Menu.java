@@ -20,8 +20,13 @@ public class Menu extends JPanel{
 		parametre = new JButton("Parametre");
 		play.addActionListener(fenetre);
 		parametre.addActionListener(fenetre);
-		this.add(play,BorderLayout.CENTER);
-		this.add(parametre,BorderLayout.CENTER);
+		play.setAlignmentX(Component.CENTER_ALIGNMENT);
+		parametre.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.add(Box.createRigidArea(new Dimension(250,250)));
+		this.add(play);
+		this.add(Box.createRigidArea(new Dimension(50,50)));
+		this.add(parametre);
 		this.fenetre = fenetre;
 		
 

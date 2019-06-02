@@ -1,0 +1,39 @@
+Projet Jeu de Go DUT INFO 2018/2019
+
+Le jeu se lance avec le fichier Main.
+
+//// Fenetre.java ////
+
+JFrame du jeu ainsi que le MouseListener,MouseMotionListener,ActionListener pour les JPanel.
+
+//// Menu.java ////
+
+Menu qui redirige vers les autres JPanel.
+
+//// Parametre.java ////
+
+JPanel du menu parametre. 
+
+//// Panel.java ////
+
+Panel contenant le plateau ainsi que le Panel de score.
+
+//// Plateau.java ////
+
+Un tableau de case représentant le plateau, un int pour voir qu'elle joueur doit jouer , le dernier coup du joueur 1 et le dernier coup du joueur 2.
+
+//// Score.java ////
+
+Panel avec le score des deux joueurs ainsi qu'un DefaultListModel de Plateau qui contient l'historique des plateaux, Une Jlist pour lister l'historique et un ScrollPane pour contenir la Jlist et pouvoir scroller.
+
+//// Case.java ////
+
+La position de la case en x et y ainsi que ses index pour retrouver la case sur le Plateau. Une LinkedList qui contient les cases qui sont ses libertés et un int contenue pour voir qu'elle pion est placé sur cette case.
+
+
+//// Partie.java ////
+
+JPanel qui fait office de conteneur pour le Panel de la partie ainsi que le Panel de score.
+
+
+

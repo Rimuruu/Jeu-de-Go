@@ -29,11 +29,11 @@ public class Panel extends JPanel{
 		addMouseListener(fenetre);
 		addMouseMotionListener(fenetre);
 
-		goban = Toolkit.getDefaultToolkit().getImage("goban"+fenetre.param.size+".png");
-		pionn = Toolkit.getDefaultToolkit().getImage("pionnoir"+fenetre.param.size+".png");
-		pionnt = Toolkit.getDefaultToolkit().getImage("pionnoir"+fenetre.param.size+"t.png");
-		pionbt = Toolkit.getDefaultToolkit().getImage("pionblanc"+fenetre.param.size+"t.png");
-		pionb = Toolkit.getDefaultToolkit().getImage("pionblanc"+fenetre.param.size+".png");
+		goban = Toolkit.getDefaultToolkit().getImage("asset/goban"+fenetre.param.size+".png");
+		pionn = Toolkit.getDefaultToolkit().getImage("asset/pionnoir"+fenetre.param.size+".png");
+		pionnt = Toolkit.getDefaultToolkit().getImage("asset/pionnoir"+fenetre.param.size+"t.png");
+		pionbt = Toolkit.getDefaultToolkit().getImage("asset/pionblanc"+fenetre.param.size+"t.png");
+		pionb = Toolkit.getDefaultToolkit().getImage("asset/pionblanc"+fenetre.param.size+".png");
 	
 		plateau = new Plateau(fenetre);
 		init = false;
