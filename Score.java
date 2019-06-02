@@ -4,12 +4,13 @@ import java.io.*;
 import java.util.*;
 import javax.imageio.ImageIO;
 import java.awt.event.*;
+import javax.swing.event.*;
 
-public class Score extends JPanel{
+public class Score extends JPanel implements ListSelectionListener{
 	public Fenetre fenetre;
-	public LinkedList<Case[][]> historique;
-	public JList<Case[][]> list;
-	public DefaultListModel listModel;
+
+	public JList<Plateau> list;
+	public DefaultListModel<Plateau> listModel;
 	public JScrollPane scroll;
 	public JLabel scoreblanc;
 	public JLabel scorenoir;
@@ -22,13 +23,13 @@ public class Score extends JPanel{
 		//addMouseMotionListener(fenetre);
 		//setBackground(Color.BLACK);
 		this.fenetre = fenetre;
-		this.historique = new LinkedList<Case[][]>();
-		this.listModel = new DefaultListModel();
-		this.list = new JList<Case[][]>(this.listModel);
+	
+		this.listModel = new DefaultListModel<Plateau>();
+		this.list = new JList<Plateau>(this.listModel);
 		list.setLayoutOrientation(JList.VERTICAL);
 		//list.setVisibleRowCount(10);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setSelectedIndex(0);
+		
 
 		scroll = new JScrollPane(list);
 		scroll.setPreferredSize(new Dimension(340,400));
@@ -38,6 +39,7 @@ public class Score extends JPanel{
 		this.add(scoreblanc);
 		this.add(scorenoir);
 		this.add(scroll);
+		list.addListSelectionListener(this);
 	
 
 	}
@@ -53,24 +55,27 @@ public class Score extends JPanel{
 
 
 
-	public Case[][] copyPlateau(Case[][] plat){
-		Case[][] copy = new Case[fenetre.param.size][fenetre.param.size];
+	public Plateau copyPlateau(Plateau plateau){
+
+		Plateau copy = new Plateau(this.fenetre);
 		for (int i = 0;i<fenetre.param.size;i=i+1) {
 			for (int y = 0;y<fenetre.param.size;y=y+1) {
-				copy[i][y] = new Case(plat[i][y].x,plat[i][y].y,plat[i][y].index,plat[i][y].indey,this.fenetre.panel);
-				copy[i][y].contenue = plat[i][y].contenue;
+				copy.plat[i][y] = new Case(plateau.plat[i][y].x,plateau.plat[i][y].y,plateau.plat[i][y].index,plateau.plat[i][y].indey,this.fenetre.panel);
+				copy.plat[i][y].contenue = plateau.plat[i][y].contenue;
 			}	
 		}
 		for (int i = 0;i<fenetre.param.size;i=i+1) {
 			for (int y = 0;y<fenetre.param.size;y=y+1) {
-				 for(Case cases: plat[i][y].liberte)
+				 for(Case cases: plateau.plat[i][y].liberte)
       			{
-    	  			copy[i][y].liberte.add(copy[cases.index][cases.indey]);
+    	  			copy.plat[i][y].liberte.add(copy.plat[cases.index][cases.indey]);
       			}
 				
 			}	
 		}
-
+		copy.j=plateau.j;
+		copy.lastj1=plateau.lastj1;
+		copy.lastj2=plateau.lastj2;
 		return copy;
 
 	}
@@ -81,6 +86,17 @@ public class Score extends JPanel{
 		
 
 	
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent e){
+		if (e.getValueIsAdjusting()) {
+			System.out.println(this.list.getSelectedIndex());
+			fenetre.panel.swapPlateau(listModel.getElementAt(list.getSelectedIndex()));
+
+			
+		}
+
 	}
 
 

@@ -207,19 +207,20 @@ public void prise(Case[][] plat,int size){
 		int a = 0;
 		int b = cases.contenue;
 		Case lastCase;
+		Plateau copy;
 		if (cases.contenue == 1) {
 			a = 2;
-			lastCase = panel.lastj2;
+			lastCase = panel.plateau.lastj2;
 		}
 		else{
 			a =1;
-			lastCase = panel.lastj1;
+			lastCase = panel.plateau.lastj1;
 	}
 
 		System.out.println(cases.sizeLiberter(plat,new LinkedList<Case>(),size));
 		LinkedList<Case> capture = cases.checkCaseCapture(plat,size);
 		if (cases.sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && cases.checkCapture(plat,size) == false) {
-			panel.j = b;
+			panel.plateau.j = b;
 			cases.contenue = 0;
 			Case.unsetLiberter(plat,cases,size);
 			cases.liberte.clear();
@@ -230,23 +231,24 @@ public void prise(Case[][] plat,int size){
 		}
 		
 		else if (cases.sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && capture.size() == 1 && capture.contains(lastCase)==true) {
-			panel.j = b;
+			panel.plateau.j = b;
 			cases.contenue = 0;
 			Case.unsetLiberter(plat,cases,size);
 			cases.liberte.clear();
 			System.out.println(capture.size());
 			System.out.println("Regle du ko");
+			;
 		}
 		else{
 			if (cases.sizeLiberter(plat,new LinkedList<Case>(),size) == 0) {
 				System.out.println("Suicide Capture");
 			}
 			if (cases.contenue == 1) {
-				panel.lastj1=cases;
+				panel.plateau.lastj1=cases;
 		}
 			else{
 			
-				panel.lastj2=cases;
+				panel.plateau.lastj2=cases;
 		}
 			if (cases.index != 0) {
 				if (plat[cases.index-1][cases.indey].sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && plat[cases.index-1][cases.indey].contenue == a) {
@@ -278,6 +280,11 @@ public void prise(Case[][] plat,int size){
 				
 					
 				}
+				copy = panel.score.copyPlateau(panel.plateau);
+				panel.score.listModel.addElement(copy);
+				panel.score.scrolled();
+				panel.score.list.setSelectedIndex(panel.score.list.getSelectedIndex()+1);
+
 		}
 				
 		
