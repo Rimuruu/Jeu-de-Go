@@ -34,8 +34,8 @@ public class Score extends JPanel implements ListSelectionListener{
 		scroll = new JScrollPane(list);
 		scroll.setPreferredSize(new Dimension(340,400));
 		scroll.setMaximumSize(new Dimension(340,400));
-		scoreblanc = new JLabel("Score Pion Blanc : 0");
-		scorenoir = new JLabel("Score Pion Noir : 0");
+		scoreblanc = new JLabel("Score Pion Blanc : "+fenetre.param.handicap);
+		scorenoir = new JLabel("Score Pion Noir : "+0f);
 		this.add(scoreblanc);
 		this.add(scorenoir);
 		this.add(scroll);

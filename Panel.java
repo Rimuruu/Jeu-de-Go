@@ -131,6 +131,7 @@ public class Panel extends JPanel{
 		int x = e.getX();
 		int button = e.getButton();
 		System.out.println("x "+x+" y "+y);
+		
 		Case casepick = Case.searchCase(plateau.plat,x,y,fenetre.param.size);
 
 		if (casepick != null) {

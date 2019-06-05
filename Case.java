@@ -208,6 +208,7 @@ public void prise(Case[][] plat,int size){
 		int b = cases.contenue;
 		Case lastCase;
 		Plateau copy;
+		int ko = 0;
 		if (cases.contenue == 1) {
 			a = 2;
 			lastCase = panel.plateau.lastj2;
@@ -216,7 +217,7 @@ public void prise(Case[][] plat,int size){
 			a =1;
 			lastCase = panel.plateau.lastj1;
 	}
-
+		//System.out.println(Plateau.contient(panel.score.listModel,panel.plateau));
 		System.out.println(cases.sizeLiberter(plat,new LinkedList<Case>(),size));
 		LinkedList<Case> capture = cases.checkCaseCapture(plat,size);
 		if (cases.sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && cases.checkCapture(plat,size) == false) {
@@ -237,7 +238,7 @@ public void prise(Case[][] plat,int size){
 			cases.liberte.clear();
 			System.out.println(capture.size());
 			System.out.println("Regle du ko");
-			;
+			
 		}
 		else{
 			if (cases.sizeLiberter(plat,new LinkedList<Case>(),size) == 0) {
@@ -280,10 +281,28 @@ public void prise(Case[][] plat,int size){
 				
 					
 				}
+			ko = Plateau.contient(panel.score.listModel,panel.plateau);
+			if(ko >=3){
+				System.out.println("3 Configuration deja rencontre coup annule");
+				panel.swapPlateau(panel.score.listModel.getElementAt(panel.score.list.getSelectedIndex()));
+			
+				
+			}
+			else if (ko >=0) {
+				System.out.println("Nombre de configuration deja rencontre " + ko);
 				copy = panel.score.copyPlateau(panel.plateau);
 				panel.score.listModel.addElement(copy);
 				panel.score.scrolled();
 				panel.score.list.setSelectedIndex(panel.score.list.getSelectedIndex()+1);
+
+			}
+			else{
+				copy = panel.score.copyPlateau(panel.plateau);
+				panel.score.listModel.addElement(copy);
+				panel.score.scrolled();
+				panel.score.list.setSelectedIndex(panel.score.list.getSelectedIndex()+1);
+			}
+				
 
 		}
 				
