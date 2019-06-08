@@ -10,12 +10,15 @@ public class Fenetre extends JFrame implements MouseListener,MouseMotionListener
 	public Panel panel;
 	public Parametre param;
 	public JPanel container;
+	public Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public int width = (int) screenSize.getWidth();
+	public int height = (int) screenSize.getHeight();
 	Fenetre(){
 		this.setSize(1100,928);
 	
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		this.setLocation(300,200);
+		this.setLocation(width/4,height/16);
 		this.setLayout(null);
 		this.setVisible(true);
 		this.setResizable(false);
@@ -47,7 +50,10 @@ public class Fenetre extends JFrame implements MouseListener,MouseMotionListener
 	@Override
 	public void mousePressed(MouseEvent e){
 		if (this.getContentPane() instanceof Partie) {
-			panel.placerPion(e);
+			if (panel.statut == 0) {
+				panel.placerPion(e);
+			}
+			
 		}
 		
 	}
@@ -60,7 +66,8 @@ public class Fenetre extends JFrame implements MouseListener,MouseMotionListener
 	@Override
 	public void mouseMoved(MouseEvent e){
 		if (this.getContentPane() instanceof Partie) {
-			panel.mouseOver(e);
+			if (panel.statut == 0) {
+			panel.mouseOver(e);}
 		}
 	}
 	public void actionPerformed(ActionEvent e) {

@@ -17,6 +17,7 @@ public class Score extends JPanel implements ListSelectionListener{
 	public JLabel scoreblanc;
 	public JLabel scorenoir;
 	public JButton passe;
+	public JButton quitter;
 	Score(Fenetre fenetre){
 		super();
 		this.setSize(300,900);
@@ -51,11 +52,17 @@ public class Score extends JPanel implements ListSelectionListener{
 		scoreblanc = new JLabel("Score Pion Blanc : "+this.scoreb);
 		scorenoir = new JLabel("Score Pion Noir : "+0f);
 		passe=new JButton("Passer son tour");
+		quitter=new JButton("Quitter");
 		passe.addActionListener(fenetre);
+		quitter.addActionListener(fenetre);
+		this.add(Box.createRigidArea(new Dimension(10,10)));
 		this.add(passe);
+		this.add(Box.createRigidArea(new Dimension(10,10)));
 		this.add(scoreblanc);
 		this.add(scorenoir);
+		this.add(Box.createRigidArea(new Dimension(10,10)));
 		this.add(scroll);
+		this.add(Box.createRigidArea(new Dimension(10,10)));
 		list.addListSelectionListener(this);
 	
 
@@ -63,8 +70,18 @@ public class Score extends JPanel implements ListSelectionListener{
 
 	public void buttonAction(ActionEvent e){
 		Object source = e.getSource();
-		if(source == this.passe){
+		if(source == this.passe && fenetre.panel.statut == 0){
 			fenetre.panel.passerTour();
+		}
+		else if (source == this.quitter) {
+
+			fenetre.repaint();
+			fenetre.revalidate();
+
+			fenetre.setContentPane(fenetre.menu);
+			fenetre.repaint();
+			fenetre.revalidate();
+			
 		}
 	}
 

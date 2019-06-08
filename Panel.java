@@ -21,6 +21,7 @@ public class Panel extends JPanel{
 	public int lasty;
 	public Case lastj1;
 	public Case lastj2;
+	public int statut;
 	
 	Panel(Fenetre fenetre){
 		super();
@@ -44,7 +45,7 @@ public class Panel extends JPanel{
 		else{
 			this.plateau.j=1;
 		}
-		
+		this.statut=0; 
 		lasty = 0;
 		lastx = 0;
 		this.fenetre = fenetre;
@@ -142,7 +143,7 @@ public class Panel extends JPanel{
 		this.score.listModel.addElement(copy);
 		this.score.scrolled();
 		this.score.list.setSelectedIndex(this.score.list.getSelectedIndex()+1);
-		if (this.plateau.nbPasser == 3) {
+		if (this.plateau.nbPasser == 2) {
 			this.finDePartie();			
 		}
 	}
@@ -151,9 +152,20 @@ public class Panel extends JPanel{
 		
 
 
-		this.score.passe.removeActionListener(this.fenetre);
-		removeMouseListener(this.fenetre);
-		removeMouseMotionListener(this.fenetre);
+		this.statut = 1;
+		if(this.plateau.scoren == this.plateau.scoreb){
+			score.add(new JLabel("Egalite"));
+		}
+		else if (this.plateau.scoren > this.plateau.scoreb) {
+			score.add(new JLabel("Joueur 1 gagne"));
+		}
+		else if (this.plateau.scoren < this.plateau.scoreb){
+			score.add(new JLabel("Joueur 2 gagne"));
+		}
+		score.add(Box.createRigidArea(new Dimension(10,10)));
+		score.add(score.quitter);
+		score.repaint();
+		score.revalidate();
 		//removeMouseListener(this.fenetre);
 		System.out.println("fin de la partie");
 
