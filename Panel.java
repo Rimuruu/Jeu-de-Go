@@ -21,6 +21,7 @@ public class Panel extends JPanel{
 	public int lasty;
 	public Case lastj1;
 	public Case lastj2;
+	
 	Panel(Fenetre fenetre){
 		super();
 		this.setSize(900,900);
@@ -37,12 +38,17 @@ public class Panel extends JPanel{
 	
 		plateau = new Plateau(fenetre);
 		init = false;
-		this.plateau.j=1;
+		if (fenetre.param.pionh != 0) {
+			this.plateau.j=2;
+		}
+		else{
+			this.plateau.j=1;
+		}
+		
 		lasty = 0;
 		lastx = 0;
 		this.fenetre = fenetre;
 		this.score = new Score(fenetre);
-		
 		Plateau copy = score.copyPlateau(this.plateau);
 		score.listModel.addElement(copy);
 		score.scrolled();
@@ -120,8 +126,46 @@ public class Panel extends JPanel{
 		
 	}
 
+	public void passerTour(){
+		if (this.plateau.j == 1) {
+			this.plateau.j = 2;
+		}
+		else if (this.plateau.j == 2) {
+			this.plateau.j = 1;
+		}
+		if (score.list.getSelectedIndex()+1 < score.listModel.size()) {
+			score.listModel.removeRange(score.list.getSelectedIndex()+1,score.listModel.size()-1);
+		}
+		this.plateau.nbPasser = this.plateau.nbPasser+1;
+		System.out.println("Nombre de tour passer "+this.plateau.nbPasser);
+		Plateau copy = this.score.copyPlateau(this.plateau);
+		this.score.listModel.addElement(copy);
+		this.score.scrolled();
+		this.score.list.setSelectedIndex(this.score.list.getSelectedIndex()+1);
+		if (this.plateau.nbPasser == 3) {
+			this.finDePartie();			
+		}
+	}
+
+	public void finDePartie(){
+		
+
+
+		this.score.passe.removeActionListener(this.fenetre);
+		removeMouseListener(this.fenetre);
+		removeMouseMotionListener(this.fenetre);
+		//removeMouseListener(this.fenetre);
+		System.out.println("fin de la partie");
+
+
+	}
+
 	public void swapPlateau(Plateau historique){
 		this.plateau = score.copyPlateau(historique);
+		this.score.scoren = this.plateau.scoren;
+		this.score.scoreb = this.plateau.scoreb;
+		this.score.scorenoir.setText("Score Pion Noir : "+this.score.scoren);
+		this.score.scoreblanc.setText("Score Pion Blanc : "+this.score.scoreb);
 		this.repaint();
 
 	}

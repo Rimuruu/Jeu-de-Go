@@ -12,12 +12,374 @@ public class Plateau{
 	public Case lastj2;
 	public float scoren;
 	public float scoreb;
+	public int nbPasser;
+	public LinkedList<Case> hoshi;
+	public int nbhoshi;
 
 	Plateau(Fenetre fenetre){
 		this.plat = new Case[fenetre.param.size][fenetre.param.size];
 		Panel.setCase(plat,fenetre.param.size,fenetre.panel);
 		this.scoren = 0f;
 		this.scoreb = fenetre.param.handicap;
+		this.nbPasser = 0;
+
+		this.nbhoshi = fenetre.param.pionh;
+		Plateau.setHoshi(fenetre.param.size,this.plat,fenetre.param.pionh);
+	}
+
+	public static void setHoshi(int size,Case[][] plat,int nbhoshi){
+		if (size == 9) {
+			switch(nbhoshi){
+				case 1:
+				plat[2][2].contenue=1;
+				Case.setLiberter(plat,plat[2][2],size);
+				break;
+				case 2:
+				plat[2][2].contenue=1;
+				Case.setLiberter(plat,plat[2][2],size);
+				plat[6][6].contenue=1;
+				Case.setLiberter(plat,plat[6][6],size);
+				break;
+				case 3:
+				plat[2][2].contenue=1;
+				Case.setLiberter(plat,plat[2][2],size);
+				plat[4][4].contenue=1;
+				Case.setLiberter(plat,plat[4][4],size);
+				plat[6][6].contenue=1;
+				Case.setLiberter(plat,plat[6][6],size);
+				break;
+				case 4:
+				plat[2][2].contenue=1;
+				Case.setLiberter(plat,plat[2][2],size);
+				plat[2][6].contenue=1;
+				Case.setLiberter(plat,plat[2][6],size);
+				plat[6][2].contenue=1;
+				Case.setLiberter(plat,plat[6][2],size);
+				plat[6][6].contenue=1;
+				Case.setLiberter(plat,plat[6][6],size);
+				break;
+				case 5:
+				plat[2][2].contenue=1;
+				Case.setLiberter(plat,plat[2][2],size);
+				plat[2][6].contenue=1;
+				Case.setLiberter(plat,plat[2][6],size);
+				plat[6][2].contenue=1;
+				Case.setLiberter(plat,plat[6][2],size);
+				plat[6][6].contenue=1;
+				Case.setLiberter(plat,plat[6][6],size);
+				plat[4][4].contenue=1;
+				Case.setLiberter(plat,plat[4][4],size);
+				break;
+				case 6:
+				plat[2][2].contenue=1;
+				Case.setLiberter(plat,plat[2][2],size);
+				plat[2][4].contenue=1;
+				Case.setLiberter(plat,plat[2][4],size);
+				plat[2][6].contenue=1;
+				Case.setLiberter(plat,plat[2][6],size);
+				plat[6][2].contenue=1;
+				Case.setLiberter(plat,plat[6][2],size);
+				plat[6][4].contenue=1;
+				Case.setLiberter(plat,plat[6][4],size);
+				plat[6][6].contenue=1;
+				Case.setLiberter(plat,plat[6][4],size);
+				break;
+				case 7:
+				plat[2][2].contenue=1;
+				Case.setLiberter(plat,plat[2][2],size);
+				plat[2][4].contenue=1;
+				Case.setLiberter(plat,plat[2][4],size);
+				plat[2][6].contenue=1;
+				Case.setLiberter(plat,plat[2][6],size);
+			
+				plat[4][4].contenue=1;
+				Case.setLiberter(plat,plat[4][4],size);
+	
+				plat[6][2].contenue=1;
+				Case.setLiberter(plat,plat[6][2],size);
+				plat[6][4].contenue=1;
+				Case.setLiberter(plat,plat[6][4],size);
+				plat[6][6].contenue=1;
+				Case.setLiberter(plat,plat[6][4],size);
+				break;
+				case 8:
+				plat[2][2].contenue=1;
+				Case.setLiberter(plat,plat[2][2],size);
+				plat[2][4].contenue=1;
+				Case.setLiberter(plat,plat[2][4],size);
+				plat[2][6].contenue=1;
+				Case.setLiberter(plat,plat[2][6],size);
+				plat[4][2].contenue=1;
+				Case.setLiberter(plat,plat[4][2],size);
+				plat[4][6].contenue=1;
+				Case.setLiberter(plat,plat[4][4],size);
+				plat[6][2].contenue=1;
+				Case.setLiberter(plat,plat[6][2],size);
+				plat[6][4].contenue=1;
+				Case.setLiberter(plat,plat[6][4],size);
+				plat[6][6].contenue=1;
+				Case.setLiberter(plat,plat[6][4],size);
+				break;
+				case 9:
+				plat[2][2].contenue=1;
+				Case.setLiberter(plat,plat[2][2],size);
+				plat[2][4].contenue=1;
+				Case.setLiberter(plat,plat[2][4],size);
+				plat[2][6].contenue=1;
+				Case.setLiberter(plat,plat[2][6],size);
+				plat[4][2].contenue=1;
+				Case.setLiberter(plat,plat[4][2],size);
+				plat[4][4].contenue=1;
+				Case.setLiberter(plat,plat[4][4],size);
+				plat[4][6].contenue=1;
+				Case.setLiberter(plat,plat[4][4],size);
+				plat[6][2].contenue=1;
+				Case.setLiberter(plat,plat[6][2],size);
+				plat[6][4].contenue=1;
+				Case.setLiberter(plat,plat[6][4],size);
+				plat[6][6].contenue=1;
+				Case.setLiberter(plat,plat[6][4],size);
+				break;
+
+			}
+
+			
+			
+		}
+		else if (size == 13) {
+			switch(nbhoshi){
+				case 1:
+				plat[2][2].contenue=1;
+				Case.setLiberter(plat,plat[3][3],size);
+				break;
+				case 2:
+				plat[3][3].contenue=1;
+				Case.setLiberter(plat,plat[3][3],size);
+				plat[9][9].contenue=1;
+				Case.setLiberter(plat,plat[9][9],size);
+				break;
+				case 3:
+				plat[3][3].contenue=1;
+				Case.setLiberter(plat,plat[3][3],size);
+				plat[9][9].contenue=1;
+				Case.setLiberter(plat,plat[9][9],size);
+				plat[6][6].contenue=1;
+				Case.setLiberter(plat,plat[6][6],size);
+				break;
+				case 4:
+				plat[3][3].contenue=1;
+				Case.setLiberter(plat,plat[3][3],size);
+				plat[3][9].contenue=1;
+				Case.setLiberter(plat,plat[3][9],size);
+				plat[9][3].contenue=1;
+				Case.setLiberter(plat,plat[9][3],size);
+				plat[9][9].contenue=1;
+				Case.setLiberter(plat,plat[9][9],size);
+				break;
+				case 5:
+				plat[3][3].contenue=1;
+				Case.setLiberter(plat,plat[3][3],size);
+				plat[3][9].contenue=1;
+				Case.setLiberter(plat,plat[3][9],size);
+				plat[9][3].contenue=1;
+				Case.setLiberter(plat,plat[9][3],size);
+				plat[9][9].contenue=1;
+				Case.setLiberter(plat,plat[9][9],size);
+				plat[6][6].contenue=1;
+				Case.setLiberter(plat,plat[6][6],size);
+				
+				break;
+				case 6:
+				plat[2][2].contenue=1;
+				Case.setLiberter(plat,plat[2][2],size);
+				plat[2][4].contenue=1;
+				Case.setLiberter(plat,plat[2][4],size);
+				plat[2][6].contenue=1;
+				Case.setLiberter(plat,plat[2][6],size);
+				plat[6][2].contenue=1;
+				Case.setLiberter(plat,plat[6][2],size);
+				plat[6][4].contenue=1;
+				Case.setLiberter(plat,plat[6][4],size);
+				plat[6][6].contenue=1;
+				Case.setLiberter(plat,plat[6][4],size);
+				break;
+				case 7:
+				plat[2][2].contenue=1;
+				Case.setLiberter(plat,plat[2][2],size);
+				plat[2][4].contenue=1;
+				Case.setLiberter(plat,plat[2][4],size);
+				plat[2][6].contenue=1;
+				Case.setLiberter(plat,plat[2][6],size);
+			
+				plat[4][4].contenue=1;
+				Case.setLiberter(plat,plat[4][4],size);
+	
+				plat[6][2].contenue=1;
+				Case.setLiberter(plat,plat[6][2],size);
+				plat[6][4].contenue=1;
+				Case.setLiberter(plat,plat[6][4],size);
+				plat[6][6].contenue=1;
+				Case.setLiberter(plat,plat[6][4],size);
+				break;
+				case 8:
+				plat[2][2].contenue=1;
+				Case.setLiberter(plat,plat[2][2],size);
+				plat[2][4].contenue=1;
+				Case.setLiberter(plat,plat[2][4],size);
+				plat[2][6].contenue=1;
+				Case.setLiberter(plat,plat[2][6],size);
+				plat[4][2].contenue=1;
+				Case.setLiberter(plat,plat[4][2],size);
+				plat[4][6].contenue=1;
+				Case.setLiberter(plat,plat[4][4],size);
+				plat[6][2].contenue=1;
+				Case.setLiberter(plat,plat[6][2],size);
+				plat[6][4].contenue=1;
+				Case.setLiberter(plat,plat[6][4],size);
+				plat[6][6].contenue=1;
+				Case.setLiberter(plat,plat[6][4],size);
+				break;
+				case 9:
+				plat[3][3].contenue=1;
+				Case.setLiberter(plat,plat[3][3],size);
+				plat[3][6].contenue=1;
+				Case.setLiberter(plat,plat[3][6],size);
+				plat[3][9].contenue=1;
+				Case.setLiberter(plat,plat[3][9],size);
+				plat[9][3].contenue=1;
+				Case.setLiberter(plat,plat[9][3],size);
+				plat[9][6].contenue=1;
+				Case.setLiberter(plat,plat[9][6],size);
+				plat[9][9].contenue=1;
+				Case.setLiberter(plat,plat[9][9],size);
+				plat[6][6].contenue=1;
+				Case.setLiberter(plat,plat[6][6],size);
+				plat[6][9].contenue=1;
+				Case.setLiberter(plat,plat[6][9],size);
+				plat[6][3].contenue=1;
+				Case.setLiberter(plat,plat[6][3],size);
+				break;
+
+			}
+	
+		}
+		else if (size == 19) {
+			switch(nbhoshi){
+				case 1:
+				plat[3][3].contenue=1;
+				Case.setLiberter(plat,plat[3][3],size);
+				break;
+				case 2:
+				plat[3][3].contenue=1;
+				Case.setLiberter(plat,plat[3][3],size);
+				plat[15][15].contenue=1;
+				Case.setLiberter(plat,plat[15][15],size);
+				break;	
+				case 3:
+				plat[3][3].contenue=1;
+				Case.setLiberter(plat,plat[3][3],size);
+				plat[9][9].contenue=1;
+				Case.setLiberter(plat,plat[9][9],size);
+				plat[15][15].contenue=1;
+				Case.setLiberter(plat,plat[15][15],size);
+				break;	
+				case 4:
+				plat[3][3].contenue=1;
+				Case.setLiberter(plat,plat[3][3],size);
+				plat[3][15].contenue=1;
+				Case.setLiberter(plat,plat[3][15],size);
+				plat[9][9].contenue=1;
+				Case.setLiberter(plat,plat[9][9],size);
+				plat[15][3].contenue=1;
+				Case.setLiberter(plat,plat[15][3],size);
+				plat[15][15].contenue=1;
+				Case.setLiberter(plat,plat[15][15],size);
+				break;	
+				case 5:
+				plat[3][3].contenue=1;
+				Case.setLiberter(plat,plat[3][3],size);
+				plat[3][15].contenue=1;
+				Case.setLiberter(plat,plat[3][15],size);
+				plat[9][9].contenue=1;
+				Case.setLiberter(plat,plat[9][9],size);
+				plat[15][3].contenue=1;
+				Case.setLiberter(plat,plat[15][3],size);
+				plat[15][15].contenue=1;
+				Case.setLiberter(plat,plat[15][15],size);
+				break;	
+				case 6:
+				plat[3][3].contenue=1;
+				Case.setLiberter(plat,plat[3][3],size);
+				plat[3][9].contenue=1;
+				Case.setLiberter(plat,plat[3][9],size);
+				plat[3][15].contenue=1;
+				Case.setLiberter(plat,plat[3][15],size);
+				plat[15][3].contenue=1;
+				Case.setLiberter(plat,plat[15][3],size);
+				plat[15][9].contenue=1;
+				Case.setLiberter(plat,plat[15][9],size);
+				plat[15][15].contenue=1;
+				Case.setLiberter(plat,plat[15][15],size);
+				break;	
+				case 7:
+				plat[3][3].contenue=1;
+				Case.setLiberter(plat,plat[3][3],size);
+				plat[3][9].contenue=1;
+				Case.setLiberter(plat,plat[3][9],size);
+				plat[3][15].contenue=1;
+				Case.setLiberter(plat,plat[3][15],size);
+				plat[9][9].contenue=1;
+				Case.setLiberter(plat,plat[9][9],size);
+				plat[15][3].contenue=1;
+				Case.setLiberter(plat,plat[15][3],size);
+				plat[15][9].contenue=1;
+				Case.setLiberter(plat,plat[15][9],size);
+				plat[15][15].contenue=1;
+				Case.setLiberter(plat,plat[15][15],size);
+				break;	
+				case 8:
+				plat[3][3].contenue=1;
+				Case.setLiberter(plat,plat[3][3],size);
+				plat[3][9].contenue=1;
+				Case.setLiberter(plat,plat[3][9],size);
+				plat[3][15].contenue=1;
+				Case.setLiberter(plat,plat[3][15],size);
+				plat[9][3].contenue=1;
+				Case.setLiberter(plat,plat[9][3],size);
+				plat[9][15].contenue=1;
+				Case.setLiberter(plat,plat[9][15],size);
+				plat[15][3].contenue=1;
+				Case.setLiberter(plat,plat[15][3],size);
+				plat[15][9].contenue=1;
+				Case.setLiberter(plat,plat[15][9],size);
+				plat[15][15].contenue=1;
+				Case.setLiberter(plat,plat[15][15],size);	
+				break;
+				case 9:
+				plat[3][3].contenue=1;
+				Case.setLiberter(plat,plat[3][3],size);
+				plat[3][9].contenue=1;
+				Case.setLiberter(plat,plat[3][9],size);
+				plat[3][15].contenue=1;
+				Case.setLiberter(plat,plat[3][15],size);
+				plat[9][3].contenue=1;
+				Case.setLiberter(plat,plat[9][3],size);
+				plat[9][9].contenue=1;
+				Case.setLiberter(plat,plat[9][9],size);
+				plat[9][15].contenue=1;
+				Case.setLiberter(plat,plat[9][15],size);
+				plat[15][3].contenue=1;
+				Case.setLiberter(plat,plat[15][3],size);
+				plat[15][9].contenue=1;
+				Case.setLiberter(plat,plat[15][9],size);
+				plat[15][15].contenue=1;
+				Case.setLiberter(plat,plat[15][15],size);	
+				break;
+			}
+	
+		
+		}
+
 	}
 
 	public static boolean isEqual(Plateau plat1, Plateau plat2){

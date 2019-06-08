@@ -12,28 +12,64 @@ public class Parametre extends JPanel{
 	public JButton goban13;
 	public JButton goban19;
 	public JButton handi;
+	public JLabel goban = new JLabel("Selectionner le goban :  ");
+	public JLabel texth = new JLabel("Handicape 7.5 points pour le Joueur 2 :  ");
+	public JLabel textp = new JLabel("Pierres de handicape : ");
 	public Fenetre fenetre;
 	public int size;
 	public float handicap;
+	public int pionh = 0;
+	public JLabel piont = new JLabel("  0  ");
+	public JButton arrowl =new JButton("<<");
+	public JButton arrowr =new JButton(">>");
 
 	Parametre(Fenetre fenetre){
 		super();
 		this.setSize(1100,900);
 		this.setLocation(0,0);
 		addMouseListener(fenetre);
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+		JPanel container1 = new JPanel();
+		container1.setLayout(new BoxLayout(container1, BoxLayout.X_AXIS));
+		JPanel container2 = new JPanel();
+		container2.setLayout(new BoxLayout(container2, BoxLayout.X_AXIS));
+		JPanel container3 = new JPanel();
+		container3.setLayout(new BoxLayout(container3, BoxLayout.X_AXIS));
+
 		goban9=new JButton("Goban 9x9");
 		goban13=new JButton("Goban 13x13");
 		goban19=new JButton("Goban 19x19");
 		handi=new JButton("Handicape");
-		
+
+		goban9.setAlignmentX(Component.CENTER_ALIGNMENT);
+		goban13.setAlignmentX(Component.CENTER_ALIGNMENT);
+		goban19.setAlignmentX(Component.CENTER_ALIGNMENT);
+		handi.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 		goban9.addActionListener(fenetre);
 		goban13.addActionListener(fenetre);
 		goban19.addActionListener(fenetre);
 		handi.addActionListener(fenetre);
-		this.add(goban9,BorderLayout.CENTER);
-		this.add(goban13,BorderLayout.CENTER);
-		this.add(goban19,BorderLayout.CENTER);
-		this.add(handi,BorderLayout.CENTER);
+		arrowl.addActionListener(fenetre);
+		arrowr.addActionListener(fenetre);
+
+		container1.add(goban);
+		container1.add(goban9);
+		container1.add(goban13);
+		container1.add(goban19);
+
+		container2.add(texth);
+		container2.add(handi);
+
+		container3.add(textp);
+		container3.add(arrowl);
+		container3.add(piont);
+		container3.add(arrowr);
+
+		this.add(container1);
+		this.add(container2);
+		this.add(container3);
 		this.fenetre = fenetre;
 		this.size = 9;
 		this.handicap = 0f;
@@ -103,8 +139,18 @@ public class Parametre extends JPanel{
 			}
 			
 		}
-
-
+		else if (source == this.arrowl) {
+			if (pionh != 0) {
+				pionh = pionh -1;
+				piont.setText("  "+pionh+"  ");
+			}
+	}
+		else if (source == this.arrowr) {
+			if (pionh < 9 ) {
+				pionh = pionh +1;
+				piont.setText("  "+pionh+"  ");
+			}
 
 	}
+}
 }

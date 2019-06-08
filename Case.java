@@ -51,9 +51,10 @@ public class Case{
 
 	}
 
-public void prise(Case[][] plat,int size){
+public float prise(Case[][] plat,int size){
 	int a = 0;
 	int b = this.contenue;
+	float nbprise = 1;
 	if (this.contenue == 1) {
 		a = 2;
 	}
@@ -66,7 +67,7 @@ public void prise(Case[][] plat,int size){
 				Case.ajouterLiberter(plat[this.index-1][this.indey],this);
 			}
 			else if(plat[this.index-1][this.indey].contenue == b){
-				plat[this.index-1][this.indey].prise(plat,size);
+				nbprise = nbprise + plat[this.index-1][this.indey].prise(plat,size);
 			}
 			
 		}
@@ -76,7 +77,7 @@ public void prise(Case[][] plat,int size){
 				Case.ajouterLiberter(plat[this.index][this.indey-1],this);	
 			}
 			else if(plat[this.index][this.indey-1].contenue == b){
-				plat[this.index][this.indey-1].prise(plat,size);
+				nbprise = nbprise + plat[this.index][this.indey-1].prise(plat,size);
 			}
 			
 		}
@@ -85,7 +86,7 @@ public void prise(Case[][] plat,int size){
 				Case.ajouterLiberter(plat[this.index+1][this.indey],this);
 			}
 			else if(plat[this.index+1][this.indey].contenue == b){
-				plat[this.index+1][this.indey].prise(plat,size);
+				nbprise = nbprise + plat[this.index+1][this.indey].prise(plat,size);
 			}
 		
 		}
@@ -94,7 +95,7 @@ public void prise(Case[][] plat,int size){
 				Case.ajouterLiberter(plat[this.index][this.indey+1],this);
 			}
 			else if(plat[this.index][this.indey+1].contenue == b){
-				plat[this.index][this.indey+1].prise(plat,size);
+				nbprise = nbprise + plat[this.index][this.indey+1].prise(plat,size);
 			}
 			
 		
@@ -102,6 +103,7 @@ public void prise(Case[][] plat,int size){
 		}
 
 		this.liberte.clear();
+		return nbprise;
 		
 
 
@@ -209,6 +211,7 @@ public void prise(Case[][] plat,int size){
 		Case lastCase;
 		Plateau copy;
 		int ko = 0;
+		float nbprise = 0;
 		if (cases.contenue == 1) {
 			a = 2;
 			lastCase = panel.plateau.lastj2;
@@ -253,28 +256,28 @@ public void prise(Case[][] plat,int size){
 		}
 			if (cases.index != 0) {
 				if (plat[cases.index-1][cases.indey].sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && plat[cases.index-1][cases.indey].contenue == a) {
-					plat[cases.index-1][cases.indey].prise(plat,size);
+					nbprise = nbprise + plat[cases.index-1][cases.indey].prise(plat,size);
 				}
 		
 			}
 		
 			if (cases.indey != 0) {
 				if (plat[cases.index][cases.indey-1].sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && plat[cases.index][cases.indey-1].contenue == a) {
-					plat[cases.index][cases.indey-1].prise(plat,size);
+					nbprise = nbprise + plat[cases.index][cases.indey-1].prise(plat,size);
 				}
 		
 					
 				}
 			if (cases.index != size-1) {
 				if (plat[cases.index+1][cases.indey].sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && plat[cases.index+1][cases.indey].contenue == a) {
-					plat[cases.index+1][cases.indey].prise(plat,size);
+					nbprise = nbprise + plat[cases.index+1][cases.indey].prise(plat,size);
 				}
 				
 				
 				}
 			if (cases.indey != size-1) {
 				if (plat[cases.index][cases.indey+1].sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && plat[cases.index][cases.indey+1].contenue == a) {
-					plat[cases.index][cases.indey+1].prise(plat,size);
+					nbprise = nbprise + plat[cases.index][cases.indey+1].prise(plat,size);
 				}
 				
 					
@@ -285,10 +288,25 @@ public void prise(Case[][] plat,int size){
 			if(ko >=3){
 				System.out.println("3 Configuration deja rencontre coup annule");
 				panel.swapPlateau(panel.score.listModel.getElementAt(panel.score.list.getSelectedIndex()));
-			
+				nbprise = 0;
 				
 			}
 			else if (ko >=0) {
+				panel.plateau.nbPasser = 0;
+				if (a == 2) {
+					panel.score.scoren = panel.score.scoren + nbprise;
+					panel.plateau.scoren = panel.score.scoren; 
+					panel.score.scorenoir.setText("Score Pion Noir : "+panel.score.scoren);
+			
+				}
+				else{
+					panel.score.scoreb = panel.score.scoreb + nbprise;
+					panel.plateau.scoreb = panel.score.scoreb;
+					panel.score.scoreblanc.setText("Score Pion Blanc : "+panel.score.scoreb);
+				
+				
+				}
+
 				System.out.println("Nombre de configuration deja rencontre " + ko);
 				copy = panel.score.copyPlateau(panel.plateau);
 				panel.score.listModel.addElement(copy);
@@ -297,11 +315,27 @@ public void prise(Case[][] plat,int size){
 
 			}
 			else{
+				panel.plateau.nbPasser = 0;
+				if (a == 2) {
+					panel.score.scoren = panel.score.scoren + nbprise;
+					panel.plateau.scoren = panel.score.scoren; 
+					panel.score.scorenoir.setText("Score Pion Noir : "+panel.score.scoren);
+			
+				}
+				else{
+					panel.score.scoreb = panel.score.scoreb + nbprise;
+					panel.plateau.scoreb = panel.score.scoreb;
+					panel.score.scoreblanc.setText("Score Pion Blanc : "+panel.score.scoreb);
+				
+				
+				}
+
 				copy = panel.score.copyPlateau(panel.plateau);
 				panel.score.listModel.addElement(copy);
 				panel.score.scrolled();
 				panel.score.list.setSelectedIndex(panel.score.list.getSelectedIndex()+1);
 			}
+			
 				
 
 		}

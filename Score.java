@@ -12,8 +12,11 @@ public class Score extends JPanel implements ListSelectionListener{
 	public JList<Plateau> list;
 	public DefaultListModel<Plateau> listModel;
 	public JScrollPane scroll;
+	public float scoren;
+	public float scoreb;
 	public JLabel scoreblanc;
 	public JLabel scorenoir;
+	public JButton passe;
 	Score(Fenetre fenetre){
 		super();
 		this.setSize(300,900);
@@ -26,22 +29,43 @@ public class Score extends JPanel implements ListSelectionListener{
 	
 		this.listModel = new DefaultListModel<Plateau>();
 		this.list = new JList<Plateau>(this.listModel);
+		InputMap inputMap = this.list.getInputMap();
+		InputMap parentInputMap = inputMap.getParent();
+		parentInputMap.clear();
 		list.setLayoutOrientation(JList.VERTICAL);
 		//list.setVisibleRowCount(10);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		if (fenetre.param.pionh != 0) {
+			this.scoreb = 0f;
+		}
+		else{
+			this.scoreb = fenetre.param.handicap;
+		}
 		
+		
+		this.scoren = 0f;
 
 		scroll = new JScrollPane(list);
 		scroll.setPreferredSize(new Dimension(340,400));
 		scroll.setMaximumSize(new Dimension(340,400));
-		scoreblanc = new JLabel("Score Pion Blanc : "+fenetre.param.handicap);
+		scoreblanc = new JLabel("Score Pion Blanc : "+this.scoreb);
 		scorenoir = new JLabel("Score Pion Noir : "+0f);
+		passe=new JButton("Passer son tour");
+		passe.addActionListener(fenetre);
+		this.add(passe);
 		this.add(scoreblanc);
 		this.add(scorenoir);
 		this.add(scroll);
 		list.addListSelectionListener(this);
 	
 
+	}
+
+	public void buttonAction(ActionEvent e){
+		Object source = e.getSource();
+		if(source == this.passe){
+			fenetre.panel.passerTour();
+		}
 	}
 
 	public void scrolled() {
@@ -62,6 +86,9 @@ public class Score extends JPanel implements ListSelectionListener{
 			for (int y = 0;y<fenetre.param.size;y=y+1) {
 				copy.plat[i][y] = new Case(plateau.plat[i][y].x,plateau.plat[i][y].y,plateau.plat[i][y].index,plateau.plat[i][y].indey,this.fenetre.panel);
 				copy.plat[i][y].contenue = plateau.plat[i][y].contenue;
+				if (copy.plat[i][y].contenue == 3 || copy.plat[i][y].contenue == 4) {
+					copy.plat[i][y].contenue = 0;
+				}
 			}	
 		}
 		for (int i = 0;i<fenetre.param.size;i=i+1) {
@@ -76,6 +103,10 @@ public class Score extends JPanel implements ListSelectionListener{
 		copy.j=plateau.j;
 		copy.lastj1=plateau.lastj1;
 		copy.lastj2=plateau.lastj2;
+		copy.scoren = plateau.scoren;
+		copy.scoreb = plateau.scoreb;
+		copy.nbPasser = plateau.nbPasser;
+		copy.nbhoshi = plateau.nbhoshi;
 		return copy;
 
 	}
@@ -91,7 +122,7 @@ public class Score extends JPanel implements ListSelectionListener{
 	@Override
 	public void valueChanged(ListSelectionEvent e){
 		if (e.getValueIsAdjusting()) {
-			System.out.println(this.list.getSelectedIndex());
+			//System.out.println(this.list.getSelectedIndex());
 			fenetre.panel.swapPlateau(listModel.getElementAt(list.getSelectedIndex()));
 
 			

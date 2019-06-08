@@ -19,8 +19,8 @@ public class Fenetre extends JFrame implements MouseListener,MouseMotionListener
 		this.setLayout(null);
 		this.setVisible(true);
 		this.setResizable(false);
-		addMouseListener(this);
-		addMouseMotionListener(this);
+		//addMouseListener(this);
+		//addMouseMotionListener(this);
 		param = new Parametre(this);
 		menu = new Menu(this);
 		this.setContentPane(menu);
@@ -70,6 +70,9 @@ public class Fenetre extends JFrame implements MouseListener,MouseMotionListener
 		else if (this.getContentPane() instanceof Parametre) {
 			this.param.select(e);
 			
+		}
+		if (this.getContentPane() instanceof Partie) {
+			this.panel.score.buttonAction(e);
 		}
 		
 		
