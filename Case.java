@@ -297,14 +297,18 @@ public float prise(Case[][] plat,int size){
 					panel.score.scoren = panel.score.scoren + nbprise;
 					panel.plateau.scoren = panel.score.scoren; 
 					panel.score.scorenoir.setText("Score Pion Noir : "+panel.score.scoren);
-					panel.resetTimer();
+					if (panel.fenetre.param.horloge == 1) {
+						panel.resetTimer();
+					}
 			
 				}
 				else{
 					panel.score.scoreb = panel.score.scoreb + nbprise;
 					panel.plateau.scoreb = panel.score.scoreb;
 					panel.score.scoreblanc.setText("Score Pion Blanc : "+panel.score.scoreb);
-					panel.resetTimer();
+					if (panel.fenetre.param.horloge == 1) {
+						panel.resetTimer();
+					}
 				
 				
 				}

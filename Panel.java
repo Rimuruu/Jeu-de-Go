@@ -58,23 +58,27 @@ public class Panel extends JPanel{
 		score.scrolled();
 		score.list.setSelectedIndex(0);
 		
-		temps = 60;
-		timer = new javax.swing.Timer(1000,new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				temps = temps-1;
-				score.temps.setText("Temps : "+temps);
-				if (temps == 0) {
-					temps = 60;
-					passerTour();
+		temps = 10;
+		if (fenetre.param.horloge == 1) {
+			
+			timer = new javax.swing.Timer(1000,new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					temps = temps-1;
+					score.temps.setText("Temps : "+temps);
+					if (temps == 0) {
+						temps = 10;
+						tempsdEcouler();
 
+					}
+
+		
+					
 				}
+			});
 
-	
-				
-			}
-		});
 
-		timer.start();
+			timer.start();
+		}
 		fenetre.repaint();
 		fenetre.revalidate();
 
@@ -84,7 +88,7 @@ public class Panel extends JPanel{
 	}
 
 	public void resetTimer(){
-		temps = 60;
+		temps = 10;
 		score.temps.setText("Temps : "+temps);
 	}
 
@@ -190,8 +194,36 @@ public class Panel extends JPanel{
 		score.add(score.quitter);
 		score.repaint();
 		score.revalidate();
-		resetTimer();
-		timer.stop();
+		if (fenetre.param.horloge == 1) {
+			resetTimer();
+			timer.stop();
+		}
+		
+		//removeMouseListener(this.fenetre);
+		System.out.println("fin de la partie");
+
+
+	}
+
+	public void tempsdEcouler(){
+		
+
+		this.statut = 2;
+		if (this.plateau.j == 2) {
+			score.add(new JLabel("Joueur 1 gagne"));
+		}
+		else if (this.plateau.j == 1){
+			score.add(new JLabel("Joueur 2 gagne"));
+		}
+		score.add(Box.createRigidArea(new Dimension(10,10)));
+		score.add(score.quitter);
+		score.repaint();
+		score.revalidate();
+		if (fenetre.param.horloge == 1) {
+			resetTimer();
+			timer.stop();
+		}
+		
 		//removeMouseListener(this.fenetre);
 		System.out.println("fin de la partie");
 
@@ -204,8 +236,11 @@ public class Panel extends JPanel{
 		this.score.scoreb = this.plateau.scoreb;
 		this.score.scorenoir.setText("Score Pion Noir : "+this.score.scoren);
 		this.score.scoreblanc.setText("Score Pion Blanc : "+this.score.scoreb);
-		resetTimer();
-		timer.stop();
+
+		if (fenetre.param.horloge == 1) {
+			resetTimer();
+			timer.stop();
+		}
 		this.repaint();
 
 	}
@@ -226,7 +261,10 @@ public class Panel extends JPanel{
 				if (button == MouseEvent.BUTTON1 && this.plateau.j == 1 && casepick.contenue!=2  && casepick.contenue!=1) {
 					if (score.list.getSelectedIndex()+1 < score.listModel.size()) {
 						score.listModel.removeRange(score.list.getSelectedIndex()+1,score.listModel.size()-1);
-						timer.start();
+						if (fenetre.param.horloge == 1) {
+							timer.start();
+						}
+						
 					}
 					
 					casepick.contenue=1;
@@ -239,7 +277,9 @@ public class Panel extends JPanel{
 				else if (button == MouseEvent.BUTTON1 && this.plateau.j == 2 && casepick.contenue!=1  && casepick.contenue!=2) {
 					if (score.list.getSelectedIndex()+1 < score.listModel.size()) {
 						score.listModel.removeRange(score.list.getSelectedIndex()+1,score.listModel.size()-1);
-						timer.start();
+						if (fenetre.param.horloge == 1) {
+							timer.start();
+						}
 					}
 
 					casepick.contenue=2;

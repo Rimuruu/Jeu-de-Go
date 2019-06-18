@@ -57,9 +57,10 @@ public class Score extends JPanel implements ListSelectionListener{
 		temps = new JLabel("Temps : 60");
 		passe.addActionListener(fenetre);
 		quitter.addActionListener(fenetre);
-
-		this.add(Box.createRigidArea(new Dimension(10,10)));
-		this.add(temps);
+		if (fenetre.param.horloge == 1) {
+			this.add(Box.createRigidArea(new Dimension(10,10)));
+			this.add(temps);
+		}
 		this.add(Box.createRigidArea(new Dimension(10,10)));
 		this.add(passe);
 		this.add(Box.createRigidArea(new Dimension(10,10)));
