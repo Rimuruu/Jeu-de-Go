@@ -22,6 +22,9 @@ public class Panel extends JPanel{
 	public Case lastj1;
 	public Case lastj2;
 	public int statut;
+
+	public javax.swing.Timer timer;
+	public int temps;
 	
 	Panel(Fenetre fenetre){
 		super();
@@ -55,13 +58,34 @@ public class Panel extends JPanel{
 		score.scrolled();
 		score.list.setSelectedIndex(0);
 		
-		
+		temps = 60;
+		timer = new javax.swing.Timer(1000,new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				temps = temps-1;
+				score.temps.setText("Temps : "+temps);
+				if (temps == 0) {
+					temps = 60;
+					passerTour();
+
+				}
+
+	
+				
+			}
+		});
+
+		timer.start();
 		fenetre.repaint();
 		fenetre.revalidate();
 
 		
 	
 
+	}
+
+	public void resetTimer(){
+		temps = 60;
+		score.temps.setText("Temps : "+temps);
 	}
 
 	public static void setCase(Case[][] plat,int size,Panel panel){
@@ -166,6 +190,8 @@ public class Panel extends JPanel{
 		score.add(score.quitter);
 		score.repaint();
 		score.revalidate();
+		resetTimer();
+		timer.stop();
 		//removeMouseListener(this.fenetre);
 		System.out.println("fin de la partie");
 
@@ -178,6 +204,8 @@ public class Panel extends JPanel{
 		this.score.scoreb = this.plateau.scoreb;
 		this.score.scorenoir.setText("Score Pion Noir : "+this.score.scoren);
 		this.score.scoreblanc.setText("Score Pion Blanc : "+this.score.scoreb);
+		resetTimer();
+		timer.stop();
 		this.repaint();
 
 	}
@@ -198,7 +226,7 @@ public class Panel extends JPanel{
 				if (button == MouseEvent.BUTTON1 && this.plateau.j == 1 && casepick.contenue!=2  && casepick.contenue!=1) {
 					if (score.list.getSelectedIndex()+1 < score.listModel.size()) {
 						score.listModel.removeRange(score.list.getSelectedIndex()+1,score.listModel.size()-1);
-						
+						timer.start();
 					}
 					
 					casepick.contenue=1;
@@ -211,7 +239,7 @@ public class Panel extends JPanel{
 				else if (button == MouseEvent.BUTTON1 && this.plateau.j == 2 && casepick.contenue!=1  && casepick.contenue!=2) {
 					if (score.list.getSelectedIndex()+1 < score.listModel.size()) {
 						score.listModel.removeRange(score.list.getSelectedIndex()+1,score.listModel.size()-1);
-						
+						timer.start();
 					}
 
 					casepick.contenue=2;

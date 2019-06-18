@@ -18,6 +18,7 @@ public class Score extends JPanel implements ListSelectionListener{
 	public JLabel scorenoir;
 	public JButton passe;
 	public JButton quitter;
+	public JLabel temps;
 	Score(Fenetre fenetre){
 		super();
 		this.setSize(300,900);
@@ -47,14 +48,18 @@ public class Score extends JPanel implements ListSelectionListener{
 		this.scoren = 0f;
 
 		scroll = new JScrollPane(list);
-		scroll.setPreferredSize(new Dimension(340,400));
-		scroll.setMaximumSize(new Dimension(340,400));
+		scroll.setPreferredSize(new Dimension(300,400));
+		scroll.setMaximumSize(new Dimension(300,400));
 		scoreblanc = new JLabel("Score Pion Blanc : "+this.scoreb);
 		scorenoir = new JLabel("Score Pion Noir : "+0f);
 		passe=new JButton("Passer son tour");
 		quitter=new JButton("Quitter");
+		temps = new JLabel("Temps : 60");
 		passe.addActionListener(fenetre);
 		quitter.addActionListener(fenetre);
+
+		this.add(Box.createRigidArea(new Dimension(10,10)));
+		this.add(temps);
 		this.add(Box.createRigidArea(new Dimension(10,10)));
 		this.add(passe);
 		this.add(Box.createRigidArea(new Dimension(10,10)));
