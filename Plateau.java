@@ -10,18 +10,17 @@ public class Plateau{
 	public int j;
 	public Case lastj1;
 	public Case lastj2;
-	public float scoren;
-	public float scoreb;
+	public int scoren;
+	public int scoreb;
 	public int nbPasser;
-	public LinkedList<Case> hoshi;
 	public LinkedList<Case> groupeMort;
 	public int nbhoshi;
 
 	Plateau(Fenetre fenetre){
 		this.plat = new Case[fenetre.param.size][fenetre.param.size];
 		Panel.setCase(plat,fenetre.param.size,fenetre.panel);
-		this.scoren = 0f;
-		this.scoreb = fenetre.param.handicap;
+		this.scoren = 0;
+		this.scoreb = 0;
 		this.nbPasser = 0;
 
 		this.nbhoshi = fenetre.param.pionh;

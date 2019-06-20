@@ -94,7 +94,7 @@ public class Parametre extends JPanel{
 		container4.add(textt);
 		container4.add(pashorloge);
 		container4.add(absolue);
-		container4.add(byoyomi);
+	
 
 
 		this.add(container1);

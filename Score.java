@@ -12,13 +12,15 @@ public class Score extends JPanel implements ListSelectionListener{
 	public JList<Plateau> list;
 	public DefaultListModel<Plateau> listModel;
 	public JScrollPane scroll;
-	public float scoren;
-	public float scoreb;
+	public int scoren;
+	public int scoreb;
 	public JLabel scoreblanc;
 	public JLabel scorenoir;
 	public JButton passe;
 	public JButton quitter;
 	public JButton validergroup;
+	public JButton abandonner;
+	public JButton group;
 	public JLabel temps;
 	Score(Fenetre fenetre){
 		super();
@@ -38,26 +40,23 @@ public class Score extends JPanel implements ListSelectionListener{
 		list.setLayoutOrientation(JList.VERTICAL);
 		//list.setVisibleRowCount(10);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		if (fenetre.param.pionh != 0) {
-			this.scoreb = 0f;
-		}
-		else{
-			this.scoreb = fenetre.param.handicap;
-		}
-		
-		
-		this.scoren = 0f;
+		this.scoreb = 0;		
+		this.scoren = 0;
 
 		scroll = new JScrollPane(list);
 		scroll.setPreferredSize(new Dimension(300,400));
 		scroll.setMaximumSize(new Dimension(300,400));
-		scoreblanc = new JLabel("Prisonnier Pion Noir : "+this.scoreb);
-		scorenoir = new JLabel("Prisonnier Pion Blanc : "+0f);
+		scoreblanc = new JLabel("Prisonnier Pion Noir : "+0);
+		scorenoir = new JLabel("Prisonnier Pion Blanc : "+0);
 		passe=new JButton("Passer son tour");
 		quitter=new JButton("Quitter");
 		temps = new JLabel("Temps : 60");
-		validergroup=new JButton("Groupes morts");
+		group=new JButton("Selection Groupes morts");
+		group.addActionListener(fenetre);
+		validergroup=new JButton("Valider");
 		validergroup.addActionListener(fenetre);
+		abandonner=new JButton("Abandonner");
+		abandonner.addActionListener(fenetre);
 		passe.addActionListener(fenetre);
 		quitter.addActionListener(fenetre);
 		if (fenetre.param.horloge == 1) {
@@ -66,6 +65,8 @@ public class Score extends JPanel implements ListSelectionListener{
 		}
 		this.add(Box.createRigidArea(new Dimension(10,10)));
 		this.add(passe);
+		this.add(Box.createRigidArea(new Dimension(10,10)));
+		this.add(abandonner);
 		this.add(Box.createRigidArea(new Dimension(10,10)));
 		this.add(scoreblanc);
 		this.add(scorenoir);
@@ -93,7 +94,20 @@ public class Score extends JPanel implements ListSelectionListener{
 			
 		}
 		else if (source == this.validergroup) {
+			this.remove(validergroup);
 			fenetre.panel.supprimerGroupMort();
+			fenetre.repaint();
+			fenetre.revalidate();
+		}
+		else if (source == this.group) {
+			fenetre.panel.statut = 1;
+			this.remove(group);
+			this.add(validergroup);
+			fenetre.repaint();
+			fenetre.revalidate();
+		}
+		else if (source == this.abandonner && fenetre.panel.statut == 0) {
+			fenetre.panel.abandonner();
 		}
 	}
 

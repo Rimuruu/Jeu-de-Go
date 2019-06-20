@@ -220,10 +220,10 @@ public void deselectionGroup(Case[][] plat,int size,LinkedList<Case> visiter,Lin
 
 }
 
-public float prise(Case[][] plat,int size){
+public int prise(Case[][] plat,int size){
 	int a = 0;
 	int b = this.contenue;
-	float nbprise = 1;
+	int nbprise = 1;
 	if (this.contenue == 1) {
 		a = 2;
 	}
@@ -336,8 +336,7 @@ public float prise(Case[][] plat,int size){
 		if (this.index != 0) {
 			if (plat[this.index-1][this.indey].sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && plat[this.index-1][this.indey].contenue == a) {
 				capture.add(plat[this.index-1][this.indey]);
-				System.out.println("Size capture liberte "+(plat[this.index-1][this.indey].sizeLiberter(plat,new LinkedList<Case>(),size)-1));
-				System.out.println("A:Casex "+(this.index-1)+" Casey "+this.indey);
+			
 			}
 	
 		}
@@ -346,7 +345,7 @@ public float prise(Case[][] plat,int size){
 			if (plat[this.index][this.indey-1].sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && plat[this.index][this.indey-1].contenue == a) {
 				
 				capture.add(plat[this.index][this.indey-1]);
-				System.out.println("B:Casex "+this.index+" Casey "+(this.indey-1));
+			
 			}
 	
 				
@@ -354,7 +353,7 @@ public float prise(Case[][] plat,int size){
 		if (this.index != size-1) {
 			if (plat[this.index+1][this.indey].sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && plat[this.index+1][this.indey].contenue == a) {
 				capture.add(plat[this.index+1][this.indey]);
-				System.out.println("C:Casex "+(this.index+1)+" Casey "+this.indey);
+			
 			}
 			
 			
@@ -362,7 +361,7 @@ public float prise(Case[][] plat,int size){
 		if (this.indey != size-1) {
 			if (plat[this.index][this.indey+1].sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && plat[this.index][this.indey+1].contenue == a) {
 				capture.add(plat[this.index][this.indey+1]);
-				System.out.println("D:Casex "+this.index+" Casey "+(this.indey+1));
+			
 			}
 			
 				
@@ -380,7 +379,7 @@ public float prise(Case[][] plat,int size){
 		Case lastCase;
 		Plateau copy;
 		int ko = 0;
-		float nbprise = 0;
+		int nbprise = 0;
 		if (cases.contenue == 1) {
 			a = 2;
 			lastCase = panel.plateau.lastj2;
@@ -389,15 +388,14 @@ public float prise(Case[][] plat,int size){
 			a =1;
 			lastCase = panel.plateau.lastj1;
 	}
-		//System.out.println(Plateau.contient(panel.score.listModel,panel.plateau));
-		System.out.println(cases.sizeLiberter(plat,new LinkedList<Case>(),size));
+	
 		LinkedList<Case> capture = cases.checkCaseCapture(plat,size);
 		if (cases.sizeLiberter(plat,new LinkedList<Case>(),size) == 0 && cases.checkCapture(plat,size) == false) {
 			panel.plateau.j = b;
 			cases.contenue = 0;
 			Case.unsetLiberter(plat,cases,size);
 			cases.liberte.clear();
-			System.out.println("Suicide Interdit");
+	
 
 			
 
@@ -408,14 +406,12 @@ public float prise(Case[][] plat,int size){
 			cases.contenue = 0;
 			Case.unsetLiberter(plat,cases,size);
 			cases.liberte.clear();
-			System.out.println(capture.size());
-			System.out.println("Regle du ko");
+			
+		
 			
 		}
 		else{
-			if (cases.sizeLiberter(plat,new LinkedList<Case>(),size) == 0) {
-				System.out.println("Suicide Capture");
-			}
+			
 			if (cases.contenue == 1) {
 				panel.plateau.lastj1=cases;
 		}
@@ -455,7 +451,6 @@ public float prise(Case[][] plat,int size){
 				}
 			ko = Plateau.contient(panel.score.listModel,panel.plateau);
 			if(ko >=3){
-				System.out.println("3 Configuration deja rencontre coup annule");
 				panel.swapPlateau(panel.score.listModel.getElementAt(panel.score.list.getSelectedIndex()));
 				nbprise = 0;
 				
@@ -482,7 +477,6 @@ public float prise(Case[][] plat,int size){
 				
 				}
 
-				System.out.println("Nombre de configuration deja rencontre " + ko);
 				copy = panel.score.copyPlateau(panel.plateau);
 				panel.score.listModel.addElement(copy);
 				panel.score.scrolled();

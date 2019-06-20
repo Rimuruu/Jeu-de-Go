@@ -24,7 +24,7 @@ Un tableau de case représentant le plateau, un int pour voir qu'elle joueur doi
 
 //// Score.java ////
 
-Panel avec le score des deux joueurs ainsi qu'un DefaultListModel de Plateau qui contient l'historique des plateaux, Une Jlist pour lister l'historique et un ScrollPane pour contenir la Jlist et pouvoir scroller.
+Panel avec les pions prisonniers ainsi qu'un DefaultListModel de Plateau qui contient l'historique des plateaux, Une Jlist pour lister l'historique et un ScrollPane pour contenir la Jlist et pouvoir scroller.
 
 //// Case.java ////
 
