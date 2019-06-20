@@ -18,6 +18,7 @@ public class Score extends JPanel implements ListSelectionListener{
 	public JLabel scorenoir;
 	public JButton passe;
 	public JButton quitter;
+	public JButton validergroup;
 	public JLabel temps;
 	Score(Fenetre fenetre){
 		super();
@@ -50,11 +51,13 @@ public class Score extends JPanel implements ListSelectionListener{
 		scroll = new JScrollPane(list);
 		scroll.setPreferredSize(new Dimension(300,400));
 		scroll.setMaximumSize(new Dimension(300,400));
-		scoreblanc = new JLabel("Score Pion Blanc : "+this.scoreb);
-		scorenoir = new JLabel("Score Pion Noir : "+0f);
+		scoreblanc = new JLabel("Prisonnier Pion Noir : "+this.scoreb);
+		scorenoir = new JLabel("Prisonnier Pion Blanc : "+0f);
 		passe=new JButton("Passer son tour");
 		quitter=new JButton("Quitter");
 		temps = new JLabel("Temps : 60");
+		validergroup=new JButton("Groupes morts");
+		validergroup.addActionListener(fenetre);
 		passe.addActionListener(fenetre);
 		quitter.addActionListener(fenetre);
 		if (fenetre.param.horloge == 1) {
@@ -88,6 +91,9 @@ public class Score extends JPanel implements ListSelectionListener{
 			fenetre.repaint();
 			fenetre.revalidate();
 			
+		}
+		else if (source == this.validergroup) {
+			fenetre.panel.supprimerGroupMort();
 		}
 	}
 

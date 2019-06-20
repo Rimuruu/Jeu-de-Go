@@ -14,6 +14,7 @@ public class Plateau{
 	public float scoreb;
 	public int nbPasser;
 	public LinkedList<Case> hoshi;
+	public LinkedList<Case> groupeMort;
 	public int nbhoshi;
 
 	Plateau(Fenetre fenetre){
@@ -24,6 +25,7 @@ public class Plateau{
 		this.nbPasser = 0;
 
 		this.nbhoshi = fenetre.param.pionh;
+		
 		Plateau.setHoshi(fenetre.param.size,this.plat,fenetre.param.pionh);
 	}
 

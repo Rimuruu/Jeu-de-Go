@@ -12,8 +12,11 @@ public class Case{
 	public int index;
 	public int indey;
 	public int contenue;
+	public int selection;
 	public LinkedList<Case> liberte;
 	public Panel panel;
+	public int voisinn;
+	public int voisinb;
 	Case(int x,int y,int index,int indey,Panel panel){
 		this.x = x;
 		this.y = y;
@@ -22,6 +25,9 @@ public class Case{
 		this.liberte = new LinkedList<Case>();
 		this.contenue = 0;
 		this.panel = panel;
+		this.selection = 0;
+		this.voisinn = 0;
+		this.voisinb = 0;
 	}
 
 	public static Case searchCase(Case[][] plat,int posx,int posy,int size){
@@ -50,6 +56,169 @@ public class Case{
 
 
 	}
+
+public int searchVoisinn(Case[][] plat,int size,LinkedList<Case> visiter){
+	int voisin = 0;
+	visiter.add(this);
+	if (this.index != 0) {
+		if (plat[this.index-1][this.indey].contenue == 1) {
+			voisin = voisin+1;
+		}
+	}
+	if (this.index != size-1) {
+		if (plat[this.index+1][this.indey].contenue == 1) {
+			voisin = voisin+1;
+		}
+	}
+	if (this.indey != 0) {
+		if (plat[this.index][this.indey-1].contenue == 1) {
+			voisin = voisin+1;
+		}
+	}
+	if (this.indey != size-1) {
+		if (plat[this.index][this.indey+1].contenue == 1) {
+			voisin = voisin+1;
+		}
+	} 
+
+
+	if (this.index != 0) {
+		if (plat[this.index-1][this.indey].contenue == 0 && !visiter.contains(plat[this.index-1][this.indey])) {
+			voisin = voisin+plat[this.index-1][this.indey].searchVoisinn(plat,size,visiter);
+		}
+	}
+	if (this.index != size-1) {
+		if (plat[this.index+1][this.indey].contenue == 0 && !visiter.contains(plat[this.index+1][this.indey])) {
+			voisin = voisin+plat[this.index+1][this.indey].searchVoisinn(plat,size,visiter);
+		}
+	}
+	if (this.indey != 0) {
+		if (plat[this.index][this.indey-1].contenue == 0 && !visiter.contains(plat[this.index][this.indey-1])) {
+			voisin = voisin+plat[this.index][this.indey-1].searchVoisinn(plat,size,visiter);
+		}
+	}
+	if (this.indey != size-1) {
+		if (plat[this.index][this.indey+1].contenue == 0 &&  !visiter.contains(plat[this.index][this.indey+1])) {
+			voisin = voisin+plat[this.index][this.indey+1].searchVoisinn(plat,size,visiter);
+		}
+	}
+	return voisin;
+
+}
+
+public int searchVoisinb(Case[][] plat,int size,LinkedList<Case> visiter){
+	int voisin = 0;
+	visiter.add(this);
+	if (this.index != 0) {
+		if (plat[this.index-1][this.indey].contenue == 2) {
+			voisin = voisin+1;
+		}
+	}
+	if (this.index != size-1) {
+		if (plat[this.index+1][this.indey].contenue == 2) {
+			voisin = voisin+1;
+		}
+	}
+	if (this.indey != 0) {
+		if (plat[this.index][this.indey-1].contenue == 2) {
+			voisin = voisin+1;
+		}
+	}
+	if (this.indey != size-1) {
+		if (plat[this.index][this.indey+1].contenue == 2) {
+			voisin = voisin+1;
+		}
+	} 
+
+
+	if (this.index != 0) {
+		if (plat[this.index-1][this.indey].contenue == 0 && !visiter.contains(plat[this.index-1][this.indey])) {
+			voisin = voisin+plat[this.index-1][this.indey].searchVoisinb(plat,size,visiter);
+		}
+	}
+	if (this.index != size-1) {
+		if (plat[this.index+1][this.indey].contenue == 0 && !visiter.contains(plat[this.index+1][this.indey])) {
+			voisin = voisin+plat[this.index+1][this.indey].searchVoisinb(plat,size,visiter);
+		}
+	}
+	if (this.indey != 0) {
+		if (plat[this.index][this.indey-1].contenue == 0 && !visiter.contains(plat[this.index][this.indey-1])) {
+			voisin = voisin+plat[this.index][this.indey-1].searchVoisinb(plat,size,visiter);
+		}
+	}
+	if (this.indey != size-1) {
+		if (plat[this.index][this.indey+1].contenue == 0 &&  !visiter.contains(plat[this.index][this.indey+1])) {
+			voisin = voisin+plat[this.index][this.indey+1].searchVoisinb(plat,size,visiter);
+		}
+	}
+	return voisin;
+
+}
+
+public void entourer(Case[][] plat,int size){
+	int voisinn = this.searchVoisinn(plat,size,new LinkedList<Case>());
+	int voisinb = this.searchVoisinb(plat,size,new LinkedList<Case>());
+	if (voisinb == 0 && voisinn > 0) {
+		this.contenue = 1;
+	}
+	else if (voisinn == 0 && voisinb >0) {
+		this.contenue = 2;
+	}
+}
+
+public void selectionGroup(Case[][] plat,int size,LinkedList<Case> visiter,LinkedList<Case> groupeMort){
+	this.selection = 1;
+	visiter.add(this);
+	groupeMort.add(this);
+	if (this.index != 0) {
+		if (plat[this.index-1][this.indey].contenue == this.contenue && !visiter.contains(plat[this.index-1][this.indey])) {
+			plat[this.index-1][this.indey].selectionGroup(plat,size,visiter,groupeMort);
+		}
+	}
+	if (this.index != size-1) {
+		if (plat[this.index+1][this.indey].contenue == this.contenue && !visiter.contains(plat[this.index+1][this.indey])) {
+			plat[this.index+1][this.indey].selectionGroup(plat,size,visiter,groupeMort);
+		}
+	}
+	if (this.indey != 0) {
+		if (plat[this.index][this.indey-1].contenue == this.contenue && !visiter.contains(plat[this.index][this.indey-1])) {
+			plat[this.index][this.indey-1].selectionGroup(plat,size,visiter,groupeMort);
+		}
+	}
+	if (this.indey != size-1) {
+		if (plat[this.index][this.indey+1].contenue == this.contenue&& !visiter.contains(plat[this.index][this.indey+1])) {
+			plat[this.index][this.indey+1].selectionGroup(plat,size,visiter,groupeMort);
+		}
+	}
+
+}
+
+public void deselectionGroup(Case[][] plat,int size,LinkedList<Case> visiter,LinkedList<Case> groupeMort){
+	this.selection = 0;
+	visiter.add(this);
+	groupeMort.remove(this);
+	if (this.index != 0) {
+		if (plat[this.index-1][this.indey].contenue == this.contenue && !visiter.contains(plat[this.index-1][this.indey])) {
+			plat[this.index-1][this.indey].deselectionGroup(plat,size,visiter,groupeMort);
+		}
+	}
+	if (this.index != size-1) {
+		if (plat[this.index+1][this.indey].contenue == this.contenue && !visiter.contains(plat[this.index+1][this.indey])) {
+			plat[this.index+1][this.indey].deselectionGroup(plat,size,visiter,groupeMort);
+		}
+	}
+	if (this.indey != 0) {
+		if (plat[this.index][this.indey-1].contenue == this.contenue && !visiter.contains(plat[this.index][this.indey-1])) {
+			plat[this.index][this.indey-1].deselectionGroup(plat,size,visiter,groupeMort);
+		}
+	}
+	if (this.indey != size-1) {
+		if (plat[this.index][this.indey+1].contenue == this.contenue&& !visiter.contains(plat[this.index][this.indey+1])) {
+			plat[this.index][this.indey+1].deselectionGroup(plat,size,visiter,groupeMort);
+		}
+	}
+
+}
 
 public float prise(Case[][] plat,int size){
 	int a = 0;
@@ -296,7 +465,7 @@ public float prise(Case[][] plat,int size){
 				if (a == 2) {
 					panel.score.scoren = panel.score.scoren + nbprise;
 					panel.plateau.scoren = panel.score.scoren; 
-					panel.score.scorenoir.setText("Score Pion Noir : "+panel.score.scoren);
+					panel.score.scorenoir.setText("Prisonnier Pion Blanc : "+panel.score.scoren);
 					if (panel.fenetre.param.horloge == 1) {
 						panel.resetTimer();
 					}
@@ -305,7 +474,7 @@ public float prise(Case[][] plat,int size){
 				else{
 					panel.score.scoreb = panel.score.scoreb + nbprise;
 					panel.plateau.scoreb = panel.score.scoreb;
-					panel.score.scoreblanc.setText("Score Pion Blanc : "+panel.score.scoreb);
+					panel.score.scoreblanc.setText("Prisonnier Pion Noir : "+panel.score.scoreb);
 					if (panel.fenetre.param.horloge == 1) {
 						panel.resetTimer();
 					}
@@ -325,13 +494,13 @@ public float prise(Case[][] plat,int size){
 				if (a == 2) {
 					panel.score.scoren = panel.score.scoren + nbprise;
 					panel.plateau.scoren = panel.score.scoren; 
-					panel.score.scorenoir.setText("Score Pion Noir : "+panel.score.scoren);
+					panel.score.scorenoir.setText("Prisonnier Pion Blanc : "+panel.score.scoren);
 			
 				}
 				else{
 					panel.score.scoreb = panel.score.scoreb + nbprise;
 					panel.plateau.scoreb = panel.score.scoreb;
-					panel.score.scoreblanc.setText("Score Pion Blanc : "+panel.score.scoreb);
+					panel.score.scoreblanc.setText("Prisonnier Pion Noir : "+panel.score.scoreb);
 				
 				
 				}

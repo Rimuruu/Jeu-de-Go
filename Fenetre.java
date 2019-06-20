@@ -53,6 +53,9 @@ public class Fenetre extends JFrame implements MouseListener,MouseMotionListener
 			if (panel.statut == 0) {
 				panel.placerPion(e);
 			}
+			else if (panel.statut == 1) {
+				panel.selectionGroupeMort(e);
+			}
 			
 		}
 		

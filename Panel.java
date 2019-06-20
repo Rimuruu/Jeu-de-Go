@@ -12,6 +12,7 @@ public class Panel extends JPanel{
 	public Image pionnt;
 	public Image pionbt;
 	public Image pionb;
+	public Image selection;
 	public Plateau plateau;
 	public boolean init;
 
@@ -22,7 +23,7 @@ public class Panel extends JPanel{
 	public Case lastj1;
 	public Case lastj2;
 	public int statut;
-
+	public LinkedList<Case> groupeMort;
 	public javax.swing.Timer timer;
 	public int temps;
 	
@@ -39,6 +40,7 @@ public class Panel extends JPanel{
 		pionnt = Toolkit.getDefaultToolkit().getImage("asset/pionnoir"+fenetre.param.size+"t.png");
 		pionbt = Toolkit.getDefaultToolkit().getImage("asset/pionblanc"+fenetre.param.size+"t.png");
 		pionb = Toolkit.getDefaultToolkit().getImage("asset/pionblanc"+fenetre.param.size+".png");
+		selection = Toolkit.getDefaultToolkit().getImage("asset/selection"+fenetre.param.size+".png");
 	
 		plateau = new Plateau(fenetre);
 		init = false;
@@ -53,6 +55,7 @@ public class Panel extends JPanel{
 		lastx = 0;
 		this.fenetre = fenetre;
 		this.score = new Score(fenetre);
+		this.groupeMort = new LinkedList<Case>();
 		Plateau copy = score.copyPlateau(this.plateau);
 		score.listModel.addElement(copy);
 		score.scrolled();
@@ -124,6 +127,7 @@ public class Panel extends JPanel{
 			
 		}
 
+
 	}
 
 	public void posePion(Graphics g){
@@ -141,11 +145,47 @@ public class Panel extends JPanel{
 				else if (plateau.plat[x][y].contenue == 4) {
 					g.drawImage(pionbt,plateau.plat[x][y].x,plateau.plat[x][y].y,this);				
 				}
+				if (plateau.plat[x][y].selection == 1) {
+					g.drawImage(selection,plateau.plat[x][y].x,plateau.plat[x][y].y,this);
+				}
 			}
 		}
 	}
 
+	public void selectionGroupeMort(MouseEvent e){
+		int y = e.getY();
+		int x = e.getX();
+		int button = e.getButton();
+		
+		Case casepick = Case.searchCase(plateau.plat,x,y,fenetre.param.size);
+		if (x>40 && y > 40 && x<900 && y < 900) {
+				if (button == MouseEvent.BUTTON1 && casepick.selection == 0 &&(casepick.contenue==2  || casepick.contenue==1)) {
+					
+					casepick.selectionGroup(plateau.plat,fenetre.param.size,new LinkedList<Case>(),groupeMort);
+					
+				
+				}
+				else if (button == MouseEvent.BUTTON1 && casepick.selection == 1 &&(casepick.contenue==2  || casepick.contenue==1)) {
+					
+					casepick.deselectionGroup(plateau.plat,fenetre.param.size,new LinkedList<Case>(),groupeMort);
+					
+				
+				}
 
+			}
+		this.repaint();
+
+
+	}
+
+	public void rempli(){
+		for (int x = 0;x<fenetre.param.size;x=x+1) {
+			for (int y = 0;y<fenetre.param.size;y=y+1) {
+				plateau.plat[x][y].entourer(plateau.plat,fenetre.param.size);
+			}
+		}
+		repaint();
+	}
 
 	@Override
 	public void paintComponent(Graphics g){
@@ -176,6 +216,28 @@ public class Panel extends JPanel{
 		}
 	}
 
+	public void supprimerGroupMort(){
+		Iterator<Case> it = this.groupeMort.iterator();
+		Case c;
+		while(it.hasNext()){
+			c = it.next();
+			if (c.contenue == 1) {
+				score.scoreb = score.scoreb +1;
+				
+			}
+			else if (c.contenue == 2) {
+				score.scoren = score.scoren +1;
+			}
+			c.contenue = 0;
+			c.selection = 0;
+			it.remove();
+		}
+		this.score.scorenoir.setText("Prisonnier Pion Blanc : "+this.score.scoren);
+		this.score.scoreblanc.setText("Prisonnier Pion Noir : "+this.score.scoreb);
+		this.repaint();
+		rempli();
+	}
+
 	public void finDePartie(){
 		
 
@@ -192,6 +254,8 @@ public class Panel extends JPanel{
 		}
 		score.add(Box.createRigidArea(new Dimension(10,10)));
 		score.add(score.quitter);
+		score.add(Box.createRigidArea(new Dimension(10,10)));
+		score.add(score.validergroup);
 		score.repaint();
 		score.revalidate();
 		if (fenetre.param.horloge == 1) {
@@ -223,7 +287,8 @@ public class Panel extends JPanel{
 			resetTimer();
 			timer.stop();
 		}
-		
+		this.score.scorenoir.setText("Prisonnier Pion Blanc : "+this.score.scoren);
+		this.score.scoreblanc.setText("Prisonnier Pion Noir : "+this.score.scoreb);
 		//removeMouseListener(this.fenetre);
 		System.out.println("fin de la partie");
 
@@ -234,8 +299,8 @@ public class Panel extends JPanel{
 		this.plateau = score.copyPlateau(historique);
 		this.score.scoren = this.plateau.scoren;
 		this.score.scoreb = this.plateau.scoreb;
-		this.score.scorenoir.setText("Score Pion Noir : "+this.score.scoren);
-		this.score.scoreblanc.setText("Score Pion Blanc : "+this.score.scoreb);
+		this.score.scorenoir.setText("Prisonnier Pion Blanc : "+this.score.scoren);
+		this.score.scoreblanc.setText("Prisonnier Pion Noir : "+this.score.scoreb);
 
 		if (fenetre.param.horloge == 1) {
 			resetTimer();
